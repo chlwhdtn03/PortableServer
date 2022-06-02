@@ -19,6 +19,7 @@ import javax.swing.JTextField
 
 class ModifyObjectGUI : JFrame() {
 
+
     val titlePanel = JPanel();
     val field_name = JTextField(20)
     val support_data_type: Array<String> = arrayOf("string", "int") // 추가 예정
@@ -37,6 +38,16 @@ class ModifyObjectGUI : JFrame() {
 
     var saveBtn: JButton = JButton("save")
     var hintlabel: JLabel = JLabel("변수명을 빈칸으로 남겨두면 자동으로 제외됩니다.")
+
+
+    constructor(obj: PortableObject) : this() {
+
+    }
+
+    constructor() {
+
+    }
+
 
     init {
         defaultCloseOperation = DISPOSE_ON_CLOSE

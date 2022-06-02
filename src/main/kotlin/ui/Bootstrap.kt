@@ -7,7 +7,6 @@ import java.awt.Dimension
 import java.awt.Font
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import java.io.File
 import java.io.PrintStream
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -15,10 +14,9 @@ import java.net.SocketException
 import java.net.UnknownHostException
 import java.util.*
 import javax.swing.*
-import javax.swing.border.Border
 import javax.swing.border.TitledBorder
 import javax.swing.tree.DefaultMutableTreeNode
-import kotlin.collections.ArrayList
+
 
 public val objects: MutableList<PortableObject> = ArrayList<PortableObject>()
 
@@ -142,6 +140,12 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         object_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
         object_addBtn.text = "Add Object"
         object_addBtn.font = Font("맑은 고딕", Font.PLAIN, 14)
+
+        val kick_popup = JPopupMenu()
+        val item = JMenuItem("Modify")
+        item.addActionListener {
+            ModifyObjectGUI(objects[object_list.selectedIndex])
+        }
 
         listenerInnerPanel.layout = BorderLayout()
 
