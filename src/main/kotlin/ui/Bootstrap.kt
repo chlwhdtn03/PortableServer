@@ -13,6 +13,7 @@ import java.net.UnknownHostException
 import java.util.*
 import javax.swing.*
 import javax.swing.border.TitledBorder
+import javax.swing.tree.DefaultMutableTreeNode
 
 
 class Bootstrap(private val VERSION: String) : JFrame() {
@@ -26,10 +27,12 @@ class Bootstrap(private val VERSION: String) : JFrame() {
     val console_area = JTextArea()
     val console_scroll = JScrollPane(console_area)
 
+    val treeNode = DefaultMutableTreeNode("ROOT")
+
     val listenerPanel = JPanel()
-    val listener_list = JList<String>()
+    val listener_tree = JTree(treeNode)
     val listener_addBtn = JButton()
-    val listener_scroll = JScrollPane(listener_list)
+    val listener_scroll = JScrollPane(listener_tree)
 
     val visitorPanel = JPanel()
     val visitor_list = JList<String>()
@@ -54,6 +57,7 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         settingComponentSize()
 
         println("GUI is activated")
+        treeNode.add(DefaultMutableTreeNode("User"))
     }
 
     private fun settingComponentSize() {
@@ -87,6 +91,10 @@ class Bootstrap(private val VERSION: String) : JFrame() {
     private fun initListenerComponent(frame: JFrame) {
         checkIP()
         address_label.font = Font("맑은 고딕", Font.PLAIN, 14)
+
+
+        listener_tree.isEditable = false
+        listener_tree.dragEnabled = false
 
         listenerPanel.border = TitledBorder("Server")
         listenerPanel.layout = BorderLayout()
