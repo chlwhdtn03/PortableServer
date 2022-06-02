@@ -12,15 +12,17 @@ import java.net.SocketException
 import java.net.UnknownHostException
 import java.util.*
 import javax.swing.*
+import javax.swing.border.Border
 import javax.swing.border.TitledBorder
 import javax.swing.tree.DefaultMutableTreeNode
 
 
 class Bootstrap(private val VERSION: String) : JFrame() {
 
-    val address_label = JLabel("IP가 존재하지 않습니다")
     private val addresslist: MutableList<String> = ArrayList()
     private var address_count = 0
+
+    val address_label = JLabel("IP가 존재하지 않습니다")
 
     val consolePanel = JPanel()
     val console_input = JTextField()
@@ -30,9 +32,15 @@ class Bootstrap(private val VERSION: String) : JFrame() {
     val treeNode = DefaultMutableTreeNode("ROOT")
 
     val listenerPanel = JPanel()
+
+    val listenerInnerPanel = JPanel()
     val listener_tree = JTree(treeNode)
     val listener_addBtn = JButton()
     val listener_scroll = JScrollPane(listener_tree)
+
+    val object_list = JList<String>()
+    val object_addBtn = JButton()
+    val object_scroll = JScrollPane(object_list)
 
     val visitorPanel = JPanel()
     val visitor_list = JList<String>()
@@ -40,7 +48,7 @@ class Bootstrap(private val VERSION: String) : JFrame() {
 
     init {
         title = "PortableServer $VERSION"
-        size = Dimension(600,500)
+        size = Dimension(800,500)
 
         setLocationRelativeTo(null)
 
@@ -92,7 +100,6 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         checkIP()
         address_label.font = Font("맑은 고딕", Font.PLAIN, 14)
 
-
         listener_tree.isEditable = false
         listener_tree.dragEnabled = false
 
@@ -104,8 +111,27 @@ class Bootstrap(private val VERSION: String) : JFrame() {
 
         listener_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
 
-        listenerPanel.add(listener_scroll, BorderLayout.CENTER)
-        listenerPanel.add(listener_addBtn, BorderLayout.SOUTH)
+        object_list.dragEnabled = false
+        object_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
+        object_addBtn.text = "Add Object"
+        object_addBtn.font = Font("맑은 고딕", Font.PLAIN, 14)
+
+        listenerInnerPanel.layout = BorderLayout()
+
+        val panel_left = JPanel()
+        panel_left.layout = BorderLayout()
+        panel_left.add(listener_scroll, BorderLayout.CENTER)
+        panel_left.add(listener_addBtn, BorderLayout.SOUTH)
+
+        val panel_right = JPanel()
+        panel_right.layout = BorderLayout()
+        panel_right.add(object_scroll, BorderLayout.CENTER)
+        panel_right.add(object_addBtn, BorderLayout.SOUTH)
+
+        listenerInnerPanel.add(panel_left, BorderLayout.CENTER)
+        listenerInnerPanel.add(panel_right, BorderLayout.EAST)
+
+        listenerPanel.add(listenerInnerPanel, BorderLayout.CENTER)
         listenerPanel.add(address_label, BorderLayout.NORTH)
 
         println("Listener UI Loaded")
