@@ -8,11 +8,17 @@ private val port: Int = 80
 fun main(args: Array<String>) {
 
         // TODO : GUI 불가능한 환경에선 에러날거임
-        Bootstrap(VERSION)
+        val bootstrap = Bootstrap(VERSION)
 
         println("Checking HTTPS key")
         println("Initing HTTP Server...")
 
-        PortableServer(VERSION, port)
+        if(bootstrap.isActive) {
+                println("GUI 활성화")
+                PortableServer(VERSION, port, bootstrap)
+        } else {
+                println("GUI 실패")
+                PortableServer(VERSION, port)
+        }
 
 }

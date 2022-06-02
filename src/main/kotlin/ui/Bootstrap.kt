@@ -44,13 +44,15 @@ class Bootstrap(private val VERSION: String) : JFrame() {
     val object_scroll = JScrollPane(object_list)
 
     val visitorPanel = JPanel()
-    val visitor_list = JList<String>()
-    val visitor_scroll = JScrollPane(visitor_list)
+    val visitor_area = JList<String>()
+    val visitor_scroll = JScrollPane(visitor_area)
+    var visitor_list = emptyArray<String>()
 
     val listener_leftpanel = JPanel()
     val listener_rightpanel = JPanel()
 
     init {
+        setAllFont()
         title = "PortableServer $VERSION"
         size = Dimension(800,500)
 
@@ -87,9 +89,19 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         object_list.setListData(results)
     }
 
+    public fun recordVisitor(visitor: String, routername: String) {
+        visitor_list = visitor_list.plus("$visitor [$routername]\n")
+        visitor_area.setListData(visitor_list)
+        visitor_area.selectedIndex = visitor_list.indices.last
+    }
+
     private fun settingComponentListener() {
         object_addBtn.addActionListener {
             ModifyObjectGUI(this,"New Object")
+        }
+
+        listener_addBtn.addActionListener {
+            ModifyRouterGUI(this, "New Router")
         }
     }
 
@@ -124,7 +136,6 @@ class Bootstrap(private val VERSION: String) : JFrame() {
 
     private fun initListenerComponent(frame: JFrame) {
         checkIP()
-        address_label.font = Font("맑은 고딕", Font.PLAIN, 14)
 
         listener_tree.isEditable = false
         listener_tree.dragEnabled = false
@@ -133,13 +144,11 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         listenerPanel.layout = BorderLayout()
 
         listener_addBtn.text = "Add Router"
-        listener_addBtn.font = Font("맑은 고딕", Font.PLAIN, 14)
 
         listener_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
 
         object_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
         object_addBtn.text = "Add Object"
-        object_addBtn.font = Font("맑은 고딕", Font.PLAIN, 14)
 
         val object_popup = JPopupMenu()
         val item_modify = JMenuItem("Modify")
@@ -188,9 +197,7 @@ class Bootstrap(private val VERSION: String) : JFrame() {
 
     private fun initVisitorComponent(frame: JFrame) {
 
-
         visitorPanel.border = TitledBorder("Visitor")
-
         visitorPanel.layout = BorderLayout()
 
         visitor_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
@@ -230,7 +237,7 @@ class Bootstrap(private val VERSION: String) : JFrame() {
                     addresslist.add(addr.hostAddress)
                 }
             }
-//            address_label.setFont(Font("맑은 고딕", Font.BOLD, 22))
+
         } catch (e: UnknownHostException) {
             println(e)
         } catch (e: SocketException) {
@@ -244,6 +251,11 @@ class Bootstrap(private val VERSION: String) : JFrame() {
                 (e.source as JLabel).text = "Address : " + addresslist[address_count++] + ""
             }
         })
+    }
+
+    private fun setAllFont() {
+        var font = Font("맑은 고딕",Font.PLAIN,14)
+        UIManager.getLookAndFeelDefaults()["defaultFont"] = Font("맑은 고딕", Font.BOLD, 14)
     }
 
 }

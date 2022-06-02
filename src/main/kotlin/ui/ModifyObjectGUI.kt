@@ -58,8 +58,6 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
         layout = FlowLayout()
 
         tv_name.text = "객체 이름"
-        tv_name.font = Font("맑은 고딕", Font.PLAIN, 14)
-        field_name.font = Font("맑은 고딕", Font.PLAIN, 14)
         titlePanel.add(tv_name)
         titlePanel.add(field_name)
 
@@ -74,12 +72,8 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
             val label = JLabel("변수명 : ")
             val label2 = JLabel("변수 타입 : ")
 
-            label.font = Font("맑은 고딕", Font.PLAIN, 14)
-            label2.font = Font("맑은 고딕", Font.PLAIN, 14)
             add(panel.apply {
                 add(label)
-                varNames[i].font = Font("맑은 고딕", Font.PLAIN, 14)
-                varTypes[i].font = Font("맑은 고딕", Font.PLAIN, 14)
 
                 add(varNames[i])
                 add(label2)
@@ -88,8 +82,6 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
             })
         }
 
-        hintlabel.font = Font("맑은 고딕", Font.BOLD, 20)
-        saveBtn.font = Font("맑은 고딕", Font.PLAIN, 14)
 
 
         saveBtn.addActionListener {

@@ -1,7 +1,7 @@
 package file
 
 import data.PortableObject
-import data.RouterListener
+import data.RouterObject
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ui.Bootstrap
@@ -32,7 +32,7 @@ class FileManager {
             bw.close()
         }
 
-        fun loadRouter(routername: String): RouterListener {
+        fun loadRouter(routername: String): RouterObject {
             val file: File = File("data/object/${routername}.txt")
 
             if (!file.exists())
@@ -41,7 +41,7 @@ class FileManager {
             val s = br.readLine()
             br.close()
             println(s)
-            return Json.decodeFromString<RouterListener>(s)
+            return Json.decodeFromString<RouterObject>(s)
         }
 
         fun loadRouters(): Array<String> {
