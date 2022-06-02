@@ -18,10 +18,8 @@ import javax.swing.border.TitledBorder
 import javax.swing.tree.DefaultMutableTreeNode
 
 
-public val objects: MutableList<PortableObject> = ArrayList<PortableObject>()
-
 class Bootstrap(private val VERSION: String) : JFrame() {
-
+    val objects: MutableList<PortableObject> = ArrayList<PortableObject>()
     private val addresslist: MutableList<String> = ArrayList()
     private var address_count = 0
 
@@ -49,6 +47,9 @@ class Bootstrap(private val VERSION: String) : JFrame() {
     val visitor_list = JList<String>()
     val visitor_scroll = JScrollPane(visitor_list)
 
+    val listener_leftpanel = JPanel()
+    val listener_rightpanel = JPanel()
+
     init {
         title = "PortableServer $VERSION"
         size = Dimension(800,500)
@@ -74,28 +75,30 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         loadPortableObject()
     }
 
-    private fun loadPortableObject() {
+    public fun loadPortableObject() {
         val results = FileManager.loadObjects()
         if(results.isEmpty())
             return;
 
-        object_list.setListData(FileManager.loadObjects())
-        for(item in results) {
-            var filename = item.split(".")[0]
-            println(filename)
-            objects.add(FileManager.loadObject(filename))
+        objects.clear()
+
+        for(i in results.indices) {
+            results[i] = results[i].split(".")[0]
+            objects.add(FileManager.loadObject(results[i]))
         }
+        object_list.setListData(results)
     }
 
     private fun settingComponentListener() {
         object_addBtn.addActionListener {
-            ModifyObjectGUI()
+            ModifyObjectGUI(this,"New Object")
         }
     }
 
     private fun settingComponentSize() {
         consolePanel.preferredSize = consolePanel.size
         visitorPanel.preferredSize = visitorPanel.size
+
     }
 
     private fun initConsoleComponent(frame: JFrame) {
@@ -136,37 +139,48 @@ class Bootstrap(private val VERSION: String) : JFrame() {
 
         listener_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
 
-        object_list.dragEnabled = false
         object_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
         object_addBtn.text = "Add Object"
         object_addBtn.font = Font("맑은 고딕", Font.PLAIN, 14)
 
-        val kick_popup = JPopupMenu()
+        val object_popup = JPopupMenu()
         val item = JMenuItem("Modify")
         item.addActionListener {
-            ModifyObjectGUI(objects[object_list.selectedIndex])
+            ModifyObjectGUI(this, objects[object_list.selectedIndex])
         }
+        object_popup.add(item)
+
+        object_list.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    val slot: Int = object_list.locationToIndex(e.point)
+                    if (slot == -1) return
+                    object_list.selectedIndex = slot
+                    object_popup.show(object_list, e.x, e.y)
+                    super.mouseClicked(e)
+                }
+            }
+        })
 
         listenerInnerPanel.layout = BorderLayout()
 
-        val panel_left = JPanel()
-        panel_left.layout = BorderLayout()
-        panel_left.add(listener_scroll, BorderLayout.CENTER)
-        panel_left.add(listener_addBtn, BorderLayout.SOUTH)
+        listener_rightpanel.layout = BorderLayout()
+        listener_rightpanel.add(listener_scroll, BorderLayout.CENTER)
+        listener_rightpanel.add(listener_addBtn, BorderLayout.SOUTH)
 
-        val panel_right = JPanel()
-        panel_right.layout = BorderLayout()
-        panel_right.add(object_scroll, BorderLayout.CENTER)
-        panel_right.add(object_addBtn, BorderLayout.SOUTH)
+        listener_leftpanel.layout = BorderLayout()
+        listener_leftpanel.add(object_scroll, BorderLayout.CENTER)
+        listener_leftpanel.add(object_addBtn, BorderLayout.SOUTH)
 
-        listenerInnerPanel.add(panel_left, BorderLayout.CENTER)
-        listenerInnerPanel.add(panel_right, BorderLayout.EAST)
+        listenerInnerPanel.add(listener_rightpanel, BorderLayout.CENTER)
+        listenerInnerPanel.add(listener_leftpanel, BorderLayout.EAST)
 
         listenerPanel.add(listenerInnerPanel, BorderLayout.CENTER)
         listenerPanel.add(address_label, BorderLayout.NORTH)
 
         println("Listener UI Loaded")
         frame.add(listenerPanel, BorderLayout.CENTER)
+
     }
 
     private fun initVisitorComponent(frame: JFrame) {

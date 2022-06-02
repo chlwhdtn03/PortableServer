@@ -17,7 +17,7 @@ import javax.swing.JList
 import javax.swing.JPanel
 import javax.swing.JTextField
 
-class ModifyObjectGUI : JFrame() {
+class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
 
 
     val titlePanel = JPanel();
@@ -40,14 +40,14 @@ class ModifyObjectGUI : JFrame() {
     var hintlabel: JLabel = JLabel("변수명을 빈칸으로 남겨두면 자동으로 제외됩니다.")
 
 
-    constructor(obj: PortableObject) : this() {
-
+    constructor(parent: Bootstrap, obj: PortableObject) : this(parent, obj.name) {
+        field_name.text = obj.name
+        field_name.isEditable = false
+        for(i in 0..4) {
+            varNames[i].text = obj.varNames[i]
+            varTypes[i].setSelectedValue(obj.varTypes[i], false)
+        }
     }
-
-    constructor() {
-
-    }
-
 
     init {
         defaultCloseOperation = DISPOSE_ON_CLOSE
@@ -63,7 +63,7 @@ class ModifyObjectGUI : JFrame() {
         titlePanel.add(tv_name)
         titlePanel.add(field_name)
 
-        title = "New Object"
+        setTitle(title)
 
         add(titlePanel)
 
@@ -126,6 +126,7 @@ class ModifyObjectGUI : JFrame() {
                 println(data)
                 val str = Json.encodeToString(data)
                 FileManager.saveObject(field_name.text.trim(), str)
+                parent.loadPortableObject()
                 dispose()
             } else {
                 hintlabel.text = "최소 1개의 멤버가 필요합니다."
