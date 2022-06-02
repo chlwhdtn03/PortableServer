@@ -6,7 +6,6 @@ private val port: Int = 8080
 
 fun main(args: Array<String>) {
 
-
         Bootstrap(VERSION)
 
         println("Checking HTTPS key")

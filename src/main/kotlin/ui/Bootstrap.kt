@@ -1,10 +1,13 @@
 package ui
 
+import data.PortableObject
+import file.FileManager
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.Font
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
+import java.io.File
 import java.io.PrintStream
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -15,7 +18,9 @@ import javax.swing.*
 import javax.swing.border.Border
 import javax.swing.border.TitledBorder
 import javax.swing.tree.DefaultMutableTreeNode
+import kotlin.collections.ArrayList
 
+public val objects: MutableList<PortableObject> = ArrayList<PortableObject>()
 
 class Bootstrap(private val VERSION: String) : JFrame() {
 
@@ -63,9 +68,30 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         isVisible = true
 
         settingComponentSize()
+        settingComponentListener()
 
         println("GUI is activated")
         treeNode.add(DefaultMutableTreeNode("User"))
+
+        LoadPortableObject()
+    }
+
+    private fun LoadPortableObject() {
+        val results = FileManager.loadObjects()
+        if(results.isEmpty())
+            return;
+
+        object_list.setListData(FileManager.loadObjects())
+        for(item in results) {
+            println(item)
+            objects.add(FileManager.loadObject(item))
+        }
+    }
+
+    private fun settingComponentListener() {
+        object_addBtn.addActionListener {
+            ModifyObjectGUI()
+        }
     }
 
     private fun settingComponentSize() {
