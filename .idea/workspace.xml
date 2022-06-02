@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="로드 FileNotFound 수정">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="GUI 리펙토링">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654150151467</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="GUI 리펙토링">
+      <created>1654159789637</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1654159789637</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,7 +159,8 @@
     <MESSAGE value="오브젝트 확인 UI 추가" />
     <MESSAGE value="오브젝트 저장, 로드" />
     <MESSAGE value="로드 FileNotFound 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="로드 FileNotFound 수정" />
+    <MESSAGE value="GUI 리펙토링" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI 리펙토링" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

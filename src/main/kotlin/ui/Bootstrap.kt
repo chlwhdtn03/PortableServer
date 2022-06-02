@@ -77,8 +77,6 @@ class Bootstrap(private val VERSION: String) : JFrame() {
 
     public fun loadPortableObject() {
         val results = FileManager.loadObjects()
-        if(results.isEmpty())
-            return;
 
         objects.clear()
 
@@ -144,11 +142,16 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         object_addBtn.font = Font("맑은 고딕", Font.PLAIN, 14)
 
         val object_popup = JPopupMenu()
-        val item = JMenuItem("Modify")
-        item.addActionListener {
+        val item_modify = JMenuItem("Modify")
+        item_modify.addActionListener {
             ModifyObjectGUI(this, objects[object_list.selectedIndex])
         }
-        object_popup.add(item)
+        val item_delete = JMenuItem("Delete")
+        item_delete.addActionListener {
+            FileManager.deleteObject(this, objects[object_list.selectedIndex].name)
+        }
+        object_popup.add(item_modify)
+        object_popup.add(item_delete)
 
         object_list.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
