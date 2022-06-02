@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="오브젝트 확인 UI 추가">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="오브젝트 저장, 로드">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/PortableObject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/PortableObject.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -127,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654141150199</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="오브젝트 저장, 로드">
+      <created>1654149646746</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1654149646746</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -145,6 +147,7 @@
     <MESSAGE value="GUI 필수 요소" />
     <MESSAGE value="JList에서 JTree로 변경" />
     <MESSAGE value="오브젝트 확인 UI 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="오브젝트 확인 UI 추가" />
+    <MESSAGE value="오브젝트 저장, 로드" />
+    <option name="LAST_COMMIT_MESSAGE" value="오브젝트 저장, 로드" />
   </component>
 </project>

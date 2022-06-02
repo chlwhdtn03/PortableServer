@@ -14,10 +14,10 @@ class FileManager {
 
     companion object {
         fun saveObject(objectname: String, data: String) {
-            var dir: File = File("data/object/")
+            val dir: File = File("data/object/")
             if (!dir.isDirectory)
                 dir.mkdirs()
-            var file: File = File("data/object/${objectname}.txt")
+            val file: File = File("data/object/${objectname}.txt")
             if (!file.exists())
                 file.createNewFile()
 
@@ -30,20 +30,21 @@ class FileManager {
         }
 
         fun loadObject(objectname: String): PortableObject {
-            var file: File = File("data/object/${objectname}.txt")
+            val file: File = File("data/object/${objectname}.txt")
+
             if (!file.exists())
                 throw FileNotFoundException("해당 오브젝트 파일이 존재하지 않습니다.")
-            var br = BufferedReader(FileReader(file))
-            var s = br.readLine()
+            val br = BufferedReader(FileReader(file))
+            val s = br.readLine()
             println(s)
             return Json.decodeFromString<PortableObject>(s)
         }
 
         fun loadObjects(): Array<String> {
-            var dir: File = File("data/object/")
+            val dir: File = File("data/object/")
             if (!dir.isDirectory)
                 dir.mkdirs()
-            return dir.list()
+            return dir.list() as Array<String>
         }
     }
 }

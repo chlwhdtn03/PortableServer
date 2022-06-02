@@ -73,18 +73,19 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         println("GUI is activated")
         treeNode.add(DefaultMutableTreeNode("User"))
 
-        LoadPortableObject()
+        loadPortableObject()
     }
 
-    private fun LoadPortableObject() {
+    private fun loadPortableObject() {
         val results = FileManager.loadObjects()
         if(results.isEmpty())
             return;
 
         object_list.setListData(FileManager.loadObjects())
         for(item in results) {
-            println(item)
-            objects.add(FileManager.loadObject(item))
+            var filename = item.split(".")[0]
+            println(filename)
+            objects.add(FileManager.loadObject(filename))
         }
     }
 
