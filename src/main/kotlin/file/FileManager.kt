@@ -1,6 +1,7 @@
 package file
 
 import data.PortableObject
+import data.RouterListener
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ui.Bootstrap
@@ -14,6 +15,42 @@ import java.io.FileWriter
 class FileManager {
 
     companion object {
+
+        fun saveRouter(routername: String, data: String) {
+            val dir: File = File("data/router/")
+            if (!dir.isDirectory)
+                dir.mkdirs()
+            val file: File = File("data/router/${routername}.txt")
+            if (!file.exists())
+                file.createNewFile()
+
+            println(file.absolutePath)
+
+            val bw = BufferedWriter(FileWriter(file))
+            bw.write(data)
+            bw.flush()
+            bw.close()
+        }
+
+        fun loadRouter(routername: String): RouterListener {
+            val file: File = File("data/object/${routername}.txt")
+
+            if (!file.exists())
+                throw FileNotFoundException("해당 오브젝트 파일이 존재하지 않습니다.")
+            val br = BufferedReader(FileReader(file))
+            val s = br.readLine()
+            br.close()
+            println(s)
+            return Json.decodeFromString<RouterListener>(s)
+        }
+
+        fun loadRouters(): Array<String> {
+            val dir: File = File("data/router/")
+            if (!dir.isDirectory)
+                dir.mkdirs()
+            return dir.list() as Array<String>
+        }
+
         fun saveObject(objectname: String, data: String) {
             val dir: File = File("data/object/")
             if (!dir.isDirectory)
