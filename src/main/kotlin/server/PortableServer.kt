@@ -1,10 +1,12 @@
 package server
 
 import data.PortableObject
+import data.RouterObject
 import data.RouterType
 import file.FileManager
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Vertx
+import io.vertx.core.http.HttpHeaders
 import io.vertx.core.http.HttpServer
 import io.vertx.core.http.HttpServerRequest
 import io.vertx.core.http.HttpServerResponse
@@ -12,6 +14,7 @@ import io.vertx.ext.web.Route
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import ui.Bootstrap
+import java.nio.charset.StandardCharsets
 
 class PortableServer(VERSION: String, PORT: Int) {
     var bootstrap: Bootstrap? = null
@@ -24,21 +27,35 @@ class PortableServer(VERSION: String, PORT: Int) {
         val server:HttpServer = vertx.createHttpServer()
         val router:Router = Router.router(vertx)
 
-        fun addRoute(path: String, target_object: PortableObject, type: RouterType) {
-            if(type == RouterType.GET || type == RouterType.GET_POST) {
-                router.get(path).handler { requesthandler ->
+        fun addRoute(routerObject: RouterObject) {
+            if(routerObject.type == RouterType.GET || routerObject.type  == RouterType.GET_POST) {
+                router.get("/" + routerObject.address).handler { requesthandler ->
                     val response = requesthandler.response()
-                    response.putHeader("content-type","text/plain")
-                    response.end("GET for $target_object")
+                    response.putHeader("content-type","text/plain;charset=utf-8")
+                    if(routerObject.target_object == null)
+                        response.end(routerObject.message)
+                    else
+                        response.end("GET for ${routerObject.target_object}")
                 }
             }
-            if(type == RouterType.POST || type == RouterType.GET_POST) {
-                router.post(path).handler { requesthandler ->
+            if(routerObject.type == RouterType.POST || routerObject.type == RouterType.GET_POST) {
+                router.post("/" + routerObject.address).handler { requesthandler ->
                     val response = requesthandler.response()
-                    response.putHeader("content-type","text/plain")
-                    response.end("POST for $target_object")
+                    response.putHeader("content-type","text/plain;charset=utf-8")
+                    if(routerObject.target_object == null)
+                        response.end(routerObject.message)
+                    else
+                        response.end("POST for ${routerObject.target_object}")
                 }
             }
+        }
+
+        fun resetRouter() {
+            router.routes.onEach {
+                if(!(it.path == "/" || it.path == "/admin"))
+                    it.remove()
+            }
+            println("All of Router had reset")
         }
     }
     init {

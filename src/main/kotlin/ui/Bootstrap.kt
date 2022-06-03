@@ -3,6 +3,7 @@ package ui
 import data.PortableObject
 import data.RouterObject
 import file.FileManager
+import server.PortableServer
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.Font
@@ -98,10 +99,14 @@ class Bootstrap(private val VERSION: String) : JFrame() {
     public fun loadRouterList() {
         val results = FileManager.loadRouters()
         treeNode.removeAllChildren()
+
+        PortableServer.resetRouter()
+
         var temp: RouterObject
         for(i in results.indices) {
             temp = FileManager.loadRouter(results[i].split(".")[0])
             treeNode.insert(DefaultMutableTreeNode("${temp.name} (/${temp.address}) - ${temp.type}"), i)
+            PortableServer.addRoute(temp)
         }
         (listener_tree.model as DefaultTreeModel).reload(treeNode)
     }
