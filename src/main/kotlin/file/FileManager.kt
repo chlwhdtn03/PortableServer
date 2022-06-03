@@ -33,7 +33,7 @@ class FileManager {
         }
 
         fun loadRouter(routername: String): RouterObject {
-            val file: File = File("data/object/${routername}.txt")
+            val file: File = File("data/router/${routername}.txt")
 
             if (!file.exists())
                 throw FileNotFoundException("해당 오브젝트 파일이 존재하지 않습니다.")
@@ -49,6 +49,20 @@ class FileManager {
             if (!dir.isDirectory)
                 dir.mkdirs()
             return dir.list() as Array<String>
+        }
+
+        fun deleteRouter(bootstrap: Bootstrap, routername: String) {
+            val file: File = File("data/router/${routername}.txt")
+
+            if (!file.exists())
+                throw FileNotFoundException("해당 라우터 파일이 존재하지 않습니다.")
+
+            if(file.delete())
+                println("DELETED $routername")
+            else
+                println("Failed to delete $routername")
+            bootstrap.loadRouterList()
+
         }
 
         fun saveObject(objectname: String, data: String) {
@@ -96,7 +110,7 @@ class FileManager {
                 println("DELETED $objectname")
             else
                 println("Failed to delete $objectname")
-            bootstrap.loadPortableObject()
+            bootstrap.loadPortableObjectList()
 
         }
     }

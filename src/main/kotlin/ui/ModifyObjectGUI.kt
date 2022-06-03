@@ -4,11 +4,8 @@ import data.PortableObject
 import file.FileManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.encodeToJsonElement
 import java.awt.Dimension
 import java.awt.FlowLayout
-import java.awt.Font
 import java.awt.SystemColor
 import javax.swing.JButton
 import javax.swing.JFrame
@@ -118,7 +115,7 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
                 println(data)
                 val str = Json.encodeToString(data)
                 FileManager.saveObject(field_name.text.trim(), str)
-                parent.loadPortableObject()
+                parent.object_list.setListData(parent.loadPortableObjectList())
                 dispose()
             } else {
                 hintlabel.text = "최소 1개의 멤버가 필요합니다."

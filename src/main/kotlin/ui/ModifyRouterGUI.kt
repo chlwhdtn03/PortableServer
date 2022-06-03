@@ -2,14 +2,14 @@ package ui
 
 import data.PortableObject
 import data.RouterObject
+import data.RouterType
 import file.FileManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.awt.Dimension
-import java.awt.FlowLayout
-import java.awt.Font
 import java.awt.SystemColor
 import javax.swing.*
+
 
 class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
 
@@ -18,38 +18,118 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
     val field_name = JTextField(20)
     val tv_name = JLabel("라우터 별명")
     val tv_path = JLabel("라우터 주소")
+    val tv_type = JLabel("라우터 타입")
+    var checkbox_type: Array<JCheckBox> = emptyArray()
+    val buttonGroup = ButtonGroup()
     val field_path = JTextField(20)
     val tv_target = JLabel("타겟 오브젝트")
-    val select_target = JComboBox<String>(FileManager.loadObjects().plus("타겟 없음"))
+
+    val message_area = JTextArea(10,30).apply {
+        lineWrap = true
+    }
+    val message_scroll = JScrollPane(message_area).apply {
+        verticalScrollBar.setUI(PortableScrollbarUI())
+        autoscrolls = true
+    }
+
+    val target_panel = JPanel()
+
+    private lateinit var target_list: Array<String>
+    private lateinit var select_target: JComboBox<String>
 
     var saveBtn: JButton = JButton("저장")
-
-    constructor(parent: Bootstrap, obj: RouterObject) : this(parent, obj.name) {
+    var originRouter: RouterObject? = null
+    constructor(parent: Bootstrap, obj: RouterObject) : this(parent, "${obj.name} (/${obj.address})") {
+        originRouter = obj
         field_name.text = obj.name
         field_name.isEditable = false
+        field_path.text = obj.address
+        field_path.isEditable = false
+        checkbox_type.forEach { checkbox ->
+            checkbox.isEnabled = false
+            if(obj.type.name == checkbox.text)
+                checkbox.isSelected = true
+        }
+        field_path.isEditable = false
+        message_area.text = obj.message
+
+
+        target_panel.removeAll()
+        target_panel.add(message_scroll)
+
     }
 
     init {
+        target_list = parent.loadPortableObjectList().plus("타겟 없음")
+        select_target = JComboBox<String>(target_list)
+
         defaultCloseOperation = DISPOSE_ON_CLOSE
-        size = Dimension(500, 500)
+        size = Dimension(500, 400)
         setLocationRelativeTo(null)
         isResizable = false
+        setTitle(title)
 
-        layout = FlowLayout()
+        layout = BoxLayout(contentPane, BoxLayout.Y_AXIS)
 
         titlePanel.add(tv_name)
         titlePanel.add(field_name)
-
-        setTitle(title)
-
         add(titlePanel)
+
+        var panel = JPanel()
+        panel.add(tv_path)
+        panel.add(field_path)
+        add(panel)
+
+        panel = JPanel()
+        panel.add(tv_type)
+        for(i in RouterType.values().indices) {
+            checkbox_type = checkbox_type.plus(JCheckBox(RouterType.values()[i].name))
+            buttonGroup.add(checkbox_type[i])
+            panel.add(checkbox_type[i])
+        }
+        add(panel)
+
+
+        target_panel.add(tv_target)
+        target_panel.add(select_target)
+        add(target_panel)
 
         /** 변수 부분 **/
 
 
 
         saveBtn.addActionListener {
+            if(field_name.text.isEmpty()) {
+//                hintlabel.text = "객체 이름을 입력하세요"
+                field_name.background = SystemColor.yellow
+                return@addActionListener;
+            }
 
+            if(!"^[^0-9][\\w]+\$".toRegex().matches(field_path.text)) {
+//                hintlabel.text = "올바른 객체 이름이 아닙니다."
+                field_path.background = SystemColor.yellow
+                return@addActionListener
+            }
+
+            if(getSelectedButtonText(buttonGroup).equals("NULL")) {
+                buttonGroup.elements.asIterator().forEach {
+                    it.background = SystemColor.yellow
+                }
+                return@addActionListener
+            }
+
+            originRouter?.let {
+                it.message = message_area.text
+                FileManager.saveRouter(it.name, Json.encodeToString(it))
+                parent.loadRouterList()
+                dispose()
+                return@addActionListener;
+            }
+
+            val router = RouterObject(field_name.text, field_path.text, RouterType.valueOf(getSelectedButtonText(buttonGroup)), getSelectedPortableObject(select_target))
+            FileManager.saveRouter(router.name, Json.encodeToString(router))
+            parent.loadRouterList()
+            dispose()
 
         }
 
@@ -57,6 +137,28 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
 
         isVisible = true
 
+    }
+
+    private fun getSelectedPortableObject(selectTarget: JComboBox<String>): PortableObject? {
+
+        if(selectTarget.selectedIndex == selectTarget.itemCount-1) {
+            return null;
+        } else {
+            return FileManager.loadObject(target_list[selectTarget.selectedIndex])
+        }
+
+
+    }
+
+    private fun getSelectedButtonText(buttonGroup: ButtonGroup): String {
+        val buttons = buttonGroup.elements
+        while (buttons.hasMoreElements()) {
+            val button = buttons.nextElement()
+            if (button.isSelected) {
+                return button.text
+            }
+        }
+        return "NULL"
     }
 
 

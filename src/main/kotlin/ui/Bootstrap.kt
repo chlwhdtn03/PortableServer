@@ -1,6 +1,7 @@
 package ui
 
 import data.PortableObject
+import data.RouterObject
 import file.FileManager
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -16,10 +17,15 @@ import java.util.*
 import javax.swing.*
 import javax.swing.border.TitledBorder
 import javax.swing.tree.DefaultMutableTreeNode
+import javax.swing.tree.DefaultTreeModel
+import javax.swing.tree.TreeModel
+import javax.swing.tree.TreeNode
 
 
 class Bootstrap(private val VERSION: String) : JFrame() {
     val objects: MutableList<PortableObject> = ArrayList<PortableObject>()
+    val routers: MutableList<RouterObject> = ArrayList<RouterObject>()
+
     private val addresslist: MutableList<String> = ArrayList()
     private var address_count = 0
 
@@ -72,12 +78,12 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         settingComponentListener()
 
         println("GUI is activated")
-        treeNode.add(DefaultMutableTreeNode("User"))
 
-        loadPortableObject()
+        object_list.setListData(loadPortableObjectList())
+        loadRouterList()
     }
 
-    public fun loadPortableObject() {
+    public fun loadPortableObjectList() : Array<String> {
         val results = FileManager.loadObjects()
 
         objects.clear()
@@ -86,7 +92,18 @@ class Bootstrap(private val VERSION: String) : JFrame() {
             results[i] = results[i].split(".")[0]
             objects.add(FileManager.loadObject(results[i]))
         }
-        object_list.setListData(results)
+        return results
+    }
+
+    public fun loadRouterList() {
+        val results = FileManager.loadRouters()
+        treeNode.removeAllChildren()
+        var temp: RouterObject
+        for(i in results.indices) {
+            temp = FileManager.loadRouter(results[i].split(".")[0])
+            treeNode.insert(DefaultMutableTreeNode("${temp.name} (/${temp.address}) - ${temp.type}"), i)
+        }
+        (listener_tree.model as DefaultTreeModel).reload(treeNode)
     }
 
     public fun recordVisitor(visitor: String, routername: String) {
@@ -146,6 +163,31 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         listener_addBtn.text = "Add Router"
 
         listener_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
+
+
+        val listener_popup = JPopupMenu()
+        val listener_item_modify = JMenuItem("Modify")
+        listener_item_modify.addActionListener {
+            ModifyRouterGUI(this, FileManager.loadRouter((listener_tree.lastSelectedPathComponent as DefaultMutableTreeNode).userObject.toString().split(" (")[0].trim()))
+        }
+        val listener_item_delete = JMenuItem("Delete")
+        listener_item_delete.addActionListener {
+            FileManager.deleteRouter(this, (listener_tree.lastSelectedPathComponent as DefaultMutableTreeNode).userObject.toString().split(" (")[0].trim())
+        }
+        listener_popup.add(listener_item_modify)
+        listener_popup.add(listener_item_delete)
+
+        listener_tree.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    val slot: Int = listener_tree.getRowForLocation(e.x, e.y)
+                    if (slot < 1) return
+                    listener_tree.setSelectionRow(slot)
+                    listener_popup.show(listener_tree, e.x, e.y)
+                    super.mouseClicked(e)
+                }
+            }
+        })
 
         object_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
         object_addBtn.text = "Add Object"
