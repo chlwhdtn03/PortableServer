@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="라우터 저장, 편집, 삭제 시스템 구현 완료">
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="서버에 라우터 설정값 반영하기 성공">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +51,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/Choi/Desktop",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -177,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654236743210</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="서버에 라우터 설정값 반영하기 성공">
+      <created>1654237712440</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1654237712440</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -202,7 +211,8 @@
     <MESSAGE value="서버 라우터 추가" />
     <MESSAGE value="라우터 파일 관리" />
     <MESSAGE value="라우터 저장, 편집, 삭제 시스템 구현 완료" />
-    <option name="LAST_COMMIT_MESSAGE" value="라우터 저장, 편집, 삭제 시스템 구현 완료" />
+    <MESSAGE value="서버에 라우터 설정값 반영하기 성공" />
+    <option name="LAST_COMMIT_MESSAGE" value="서버에 라우터 설정값 반영하기 성공" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
