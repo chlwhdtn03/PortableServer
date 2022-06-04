@@ -109,7 +109,7 @@ class PortableServer(VERSION: String, PORT: Int) {
     }
     init {
 
-        router.route().order(0).handler(BodyHandler.create().setBodyLimit(100)).handler {
+        router.route().order(0).handler(BodyHandler.create().setBodyLimit(500)).handler {
 
             recordVisitor(it)
             it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
