@@ -1,5 +1,5 @@
 package data
 
-enum class RouterType {
+enum class RouterMethod {
     GET, POST, GET_POST, UPDATE, DELETE
 }

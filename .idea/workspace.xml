@@ -9,9 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="필요없는 MANIFEST.MF 파일 삭제">
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="라우터, 오브젝트 추가 GUI 수정&#10;트리거 행동 추가&#10;트리거 대상 추가&#10;ADD_DATA에 대한 행동 구현 완료">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/TriggerType.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/PortableObject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/PortableObject.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/RouterObject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/RouterObject.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/RouterType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/RouterMethod.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyRouterGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyRouterGUI.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,9 +66,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Kotlin Enum" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Enum" />
       </list>
     </option>
   </component>
@@ -256,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654238692400</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="방문자 기록 안되던 문제 수정">
+      <created>1654306900718</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1654306900718</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,7 +300,9 @@
     <MESSAGE value="JAR 추출 준비파일" />
     <MESSAGE value="Gradle에 맞는 JAR 추출 방식 추가" />
     <MESSAGE value="필요없는 MANIFEST.MF 파일 삭제" />
-    <option name="LAST_COMMIT_MESSAGE" value="필요없는 MANIFEST.MF 파일 삭제" />
+    <MESSAGE value="방문자 기록 안되던 문제 수정" />
+    <MESSAGE value="라우터, 오브젝트 추가 GUI 수정&#10;트리거 행동 추가&#10;트리거 대상 추가&#10;ADD_DATA에 대한 행동 구현 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="라우터, 오브젝트 추가 GUI 수정&#10;트리거 행동 추가&#10;트리거 대상 추가&#10;ADD_DATA에 대한 행동 구현 완료" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

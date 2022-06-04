@@ -3,6 +3,7 @@ package file
 import data.PortableObject
 import data.RouterObject
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ui.Bootstrap
 import java.io.BufferedReader
@@ -113,5 +114,27 @@ class FileManager {
             bootstrap.loadPortableObjectList()
 
         }
+
+        /**
+         * @return 이미 존재하는 일반키이면 false, 잘 추가 됬으면 true
+         */
+        fun addRequestObject(objectname: String, primarykey: String, requestobjectjson: String): Boolean {
+            val dir: File = File("data/${objectname}/")
+            if (!dir.isDirectory)
+                dir.mkdirs()
+            val file: File = File("data/${objectname}/${primarykey}.txt")
+            if (!file.exists()) {
+                file.createNewFile()
+            } else {
+                return false
+            }
+
+            val bw = BufferedWriter(FileWriter(file))
+            bw.write(requestobjectjson)
+            bw.flush()
+            bw.close()
+            return true
+        }
+
     }
 }

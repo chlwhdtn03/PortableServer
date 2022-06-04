@@ -8,6 +8,7 @@ import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.SystemColor
 import javax.swing.JButton
+import javax.swing.JCheckBox
 import javax.swing.JFrame
 import javax.swing.JLabel
 import javax.swing.JList
@@ -29,24 +30,31 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
         arrayOf(JTextField(20), JTextField(20), JTextField(20), JTextField(20), JTextField(20))
     var varTypes: Array<JList<String>> =
         arrayOf(JList(support_data_type), JList(support_data_type), JList(support_data_type), JList(support_data_type), JList(support_data_type))
+    var varProvides: Array<JCheckBox> =
+        arrayOf(JCheckBox().apply { isEnabled=false }, JCheckBox().apply { text = "보안 사용" }, JCheckBox().apply { text = "보안 사용" }, JCheckBox().apply { text = "보안 사용" }, JCheckBox().apply { text = "보안 사용" })
 
     var varNamesStr:Array<String> = arrayOf("","","","","")
     var varTypesStr:Array<String> = arrayOf("int","int","int","int","int")
+    var varProvidesStr:Array<Boolean> = arrayOf(true,true,true,true,true)
 
     var saveBtn: JButton = JButton("save")
     var hintlabel: JLabel = JLabel("변수명을 빈칸으로 남겨두면 자동으로 제외됩니다.")
 
+    private var editmode: Boolean = false
 
     constructor(parent: Bootstrap, obj: PortableObject) : this(parent, obj.name) {
+        editmode = true
         field_name.text = obj.name
         field_name.isEditable = false
         for(i in 0..4) {
             varNames[i].text = obj.varNames[i]
             varTypes[i].setSelectedValue(obj.varTypes[i], false)
+            varProvides[i].isSelected = !obj.varProvide[i]
         }
     }
 
     init {
+        editmode = false
         defaultCloseOperation = DISPOSE_ON_CLOSE
         size = Dimension(500, 500)
         setLocationRelativeTo(null)
@@ -66,7 +74,7 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
 
         for(i in 0..4) {
             val panel = JPanel()
-            val label = JLabel("변수명 : ")
+            val label = JLabel(if(i == 0) "(일반키)변수명 : " else "변수명")
             val label2 = JLabel("변수 타입 : ")
 
             add(panel.apply {
@@ -75,6 +83,7 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
                 add(varNames[i])
                 add(label2)
                 add(varTypes[i])
+                add(varProvides[i])
                 varTypes[i].selectedIndex = 0
             })
         }
@@ -87,6 +96,12 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
                 hintlabel.text = "객체 이름을 입력하세요"
                 field_name.background = SystemColor.yellow
                 return@addActionListener;
+            }
+            if(!editmode && parent.objects.any { it.name == field_name.text }) {
+
+                hintlabel.text = "이미 존재하는 객체 이름"
+                field_name.background = SystemColor.yellow
+                return@addActionListener
             }
 
             if(!"^[^0-9][\\w]+\$".toRegex().matches(field_name.text)) {
@@ -105,13 +120,14 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
                 }
                 varNamesStr[i] = varNames[i].text.trim()
                 varTypesStr[i] = varTypes[i].selectedValue
+                varProvidesStr[i] = !varProvides[i].isSelected
 
                 vaild_count++
                 // TODO: 중복되는 변수명에 대한 사용자에게 알림 필요
             }
 
             if(vaild_count > 0) {
-                var data = PortableObject(field_name.text.trim(), varNamesStr, varTypesStr);
+                var data = PortableObject(field_name.text.trim(), varNamesStr, varTypesStr, varProvidesStr);
                 println(data)
                 val str = Json.encodeToString(data)
                 FileManager.saveObject(field_name.text.trim(), str)

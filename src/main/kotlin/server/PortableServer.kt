@@ -2,20 +2,18 @@ package server
 
 import data.PortableObject
 import data.RouterObject
-import data.RouterType
+import data.RouterMethod
+import data.TriggerType
 import file.FileManager
-import io.vertx.core.AbstractVerticle
 import io.vertx.core.Vertx
-import io.vertx.core.http.HttpHeaders
+import io.vertx.core.buffer.Buffer
 import io.vertx.core.http.HttpServer
-import io.vertx.core.http.HttpServerRequest
-import io.vertx.core.http.HttpServerResponse
-import io.vertx.ext.web.Route
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
-import io.vertx.ext.web.handler.StaticHandler
+import io.vertx.ext.web.handler.BodyHandler
+import io.vertx.kotlin.core.buffer.appendJson
+import kotlinx.serialization.json.JsonObject
 import ui.Bootstrap
-import java.nio.charset.StandardCharsets
 
 class PortableServer(VERSION: String, PORT: Int) {
     var bootstrap: Bootstrap? = null
@@ -29,24 +27,73 @@ class PortableServer(VERSION: String, PORT: Int) {
         val router:Router = Router.router(vertx)
 
         fun addRoute(routerObject: RouterObject) {
-            if(routerObject.type == RouterType.GET || routerObject.type  == RouterType.GET_POST) {
+            if(routerObject.type == RouterMethod.GET || routerObject.type  == RouterMethod.GET_POST) {
                 router.get("/" + routerObject.address).setName("custom").handler { requesthandler ->
                     val response = requesthandler.response()
-                    response.putHeader("content-type","text/plain;charset=utf-8")
+                    response.putHeader("content-type","text/html;charset=utf-8")
                     if(routerObject.target_object == null)
-                        response.end(routerObject.message)
+                        response.end(routerObject.message.ifEmpty { "라우터 설정에서 메세지를 추가하실 수 있습니다." })
                     else
                         response.end("GET for ${routerObject.target_object}")
                 }
             }
-            if(routerObject.type == RouterType.POST || routerObject.type == RouterType.GET_POST) {
+            if(routerObject.type == RouterMethod.POST || routerObject.type == RouterMethod.GET_POST) {
                 router.post("/" + routerObject.address).setName("custom").handler { requesthandler ->
                     val response = requesthandler.response()
-                    response.putHeader("content-type","text/plain;charset=utf-8")
-                    if(routerObject.target_object == null)
-                        response.end(routerObject.message)
-                    else
-                        response.end("POST for ${routerObject.target_object}")
+                    response.putHeader("content-type","text/html;charset=utf-8")
+                    if(routerObject.target_object == null) {
+                        response.end(routerObject.message.ifEmpty { "라우터 설정에서 메세지를 추가하실 수 있습니다." })
+                    } else {
+                        val request = requesthandler.request()
+                        when (routerObject.target_trigger) {
+                            TriggerType.ADD_DATA -> {
+                                var now_varname = ""
+                                var temp_str = ""
+                                var primary_key = ""
+                                var data = io.vertx.core.json.JsonObject()
+
+                                for(i in routerObject.target_object.varNames.indices) {
+                                    now_varname = routerObject.target_object.varNames[i]
+                                    if(now_varname.isEmpty())
+                                        continue
+
+
+                                    temp_str = request.getParam(now_varname, "")
+
+                                    if(i == 0)
+                                        primary_key = temp_str
+
+                                    if(temp_str.isEmpty()) {
+                                        response.statusCode = 412
+                                        response.end("$now_varname 필드가 비어있습니다.")
+                                        return@handler
+                                    }
+                                    data.put(now_varname, temp_str)
+
+                                }
+                                FileManager.addRequestObject(routerObject.target_object.name, primary_key, data.toString())
+                                response.statusCode = 200
+                                response.end("데이터를 성공적으로 추가하였습니다.")
+                            }
+                            TriggerType.GET_DATA -> {
+
+
+                            }
+                            TriggerType.CHECK_DATA_BY_PRIMARY_KEY -> {
+
+
+                            }
+                            TriggerType.MODIFY_DATA_BY_PRIMARY_KEY -> {
+
+
+                            }
+                            TriggerType.REMOVE_DATA -> {
+
+
+                            }
+                        }
+
+                    }
                 }
             }
         }
@@ -62,11 +109,12 @@ class PortableServer(VERSION: String, PORT: Int) {
     }
     init {
 
-
-        router.route().order(0).handler {
-            recordVisitor(it)
-            it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
-        }
+        router.route().order(0).handler(BodyHandler.create())
+//        router.route().handler {
+////            recordVisitor(it)
+//            BodyHandler.create().setBodyLimit(100)
+//            it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
+//        }
 
         router.get("/").handler { requesthandler ->
             val response = requesthandler.response()

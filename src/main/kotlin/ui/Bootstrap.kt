@@ -143,8 +143,8 @@ class Bootstrap(private val VERSION: String) : JFrame() {
          *  모든 출력로그를 JTextArea에 출력
          */
         val ps = PrintStream(BootstrapPrintStream(console_area))
-        System.setErr(ps)
-        System.setOut(ps)
+//        System.setErr(ps)
+//        System.setOut(ps)
 
         console_area.isEditable = false
 

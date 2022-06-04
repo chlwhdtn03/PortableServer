@@ -2,7 +2,8 @@ package ui
 
 import data.PortableObject
 import data.RouterObject
-import data.RouterType
+import data.RouterMethod
+import data.TriggerType
 import file.FileManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -24,6 +25,7 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
     val field_path = JTextField(20)
     val tv_target = JLabel("타겟 오브젝트")
 
+    val message_tv = JLabel("타겟 오브젝트가 지정되지 않았습니다. response 메세지를 직접 정해주세요")
     val message_area = JTextArea(10,30).apply {
         lineWrap = true
     }
@@ -33,9 +35,13 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
     }
 
     val target_panel = JPanel()
+    val target_trigger_panel = JPanel()
+    val target_data_panel = JPanel()
 
-    private lateinit var target_list: Array<String>
-    private lateinit var select_target: JComboBox<String>
+    private var target_list: Array<String>
+    private var select_target: JComboBox<String>
+    private var select_trigger_data: JComboBox<String> = JComboBox<String>()
+    private var select_trigger_type : JComboBox<String>
 
     var saveBtn: JButton = JButton("저장")
     var originRouter: RouterObject? = null
@@ -51,22 +57,28 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
                 checkbox.isSelected = true
         }
         field_path.isEditable = false
-        message_area.text = obj.message
 
 
-        target_panel.removeAll()
-        target_panel.add(message_scroll)
+        if(obj.target_object == null) {
+            message_area.text = obj.message
+
+            target_trigger_panel.removeAll()
+            target_data_panel.removeAll()
+            target_panel.removeAll()
+            target_panel.add(message_tv)
+            target_panel.add(message_scroll)
+        }
 
     }
 
     init {
         target_list = parent.loadPortableObjectList().plus("타겟 없음")
         select_target = JComboBox<String>(target_list)
+        select_trigger_type = JComboBox<String>(TriggerType.values().map { triggerType -> triggerType.name }.toTypedArray())
 
         defaultCloseOperation = DISPOSE_ON_CLOSE
         size = Dimension(500, 400)
         setLocationRelativeTo(null)
-        isResizable = false
         setTitle(title)
 
         layout = BoxLayout(contentPane, BoxLayout.Y_AXIS)
@@ -82,8 +94,8 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
 
         panel = JPanel()
         panel.add(tv_type)
-        for(i in RouterType.values().indices) {
-            checkbox_type = checkbox_type.plus(JCheckBox(RouterType.values()[i].name))
+        for(i in RouterMethod.values().indices) {
+            checkbox_type = checkbox_type.plus(JCheckBox(RouterMethod.values()[i].name))
             buttonGroup.add(checkbox_type[i])
             panel.add(checkbox_type[i])
         }
@@ -94,8 +106,27 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
         target_panel.add(select_target)
         add(target_panel)
 
+        target_trigger_panel.add(select_trigger_type)
+        add(target_trigger_panel)
+
+        target_data_panel.add(select_trigger_data)
+        add(target_data_panel)
+
         /** 변수 부분 **/
 
+        val temp = getSelectedPortableObject(select_target)
+        if(temp != null)
+            for( i in temp.varNames)
+                if(i.isNotEmpty())
+                    select_trigger_data.addItem(i)
+        select_target.addItemListener {
+            select_trigger_data.removeAllItems()
+            val temp = getSelectedPortableObject(select_target)
+            if(temp != null)
+                for( i in temp.varNames)
+                    if(i.isNotEmpty())
+                        select_trigger_data.addItem(i)
+        }
 
 
         saveBtn.addActionListener {
@@ -111,7 +142,7 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
                 return@addActionListener
             }
 
-            if(getSelectedButtonText(buttonGroup).equals("NULL")) {
+            if(getSelectedButtonText(buttonGroup) == "NULL") {
                 buttonGroup.elements.asIterator().forEach {
                     it.background = SystemColor.yellow
                 }
@@ -126,7 +157,14 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
                 return@addActionListener;
             }
 
-            val router = RouterObject(field_name.text, field_path.text, RouterType.valueOf(getSelectedButtonText(buttonGroup)), getSelectedPortableObject(select_target))
+            val router = RouterObject(
+                field_name.text,
+                field_path.text,
+                RouterMethod.valueOf(getSelectedButtonText(buttonGroup)),
+                getSelectedPortableObject(select_target),
+                select_trigger_type.selectedItem?.toString()?.let { it1 -> TriggerType.valueOf(it1) },
+                select_trigger_data.selectedItem?.toString())
+
             FileManager.saveRouter(router.name, Json.encodeToString(router))
             parent.loadRouterList()
             dispose()
@@ -141,10 +179,10 @@ class ModifyRouterGUI(parent: Bootstrap, title: String) : JFrame() {
 
     private fun getSelectedPortableObject(selectTarget: JComboBox<String>): PortableObject? {
 
-        if(selectTarget.selectedIndex == selectTarget.itemCount-1) {
-            return null;
+        return if(selectTarget.selectedIndex == selectTarget.itemCount-1) {
+            null;
         } else {
-            return FileManager.loadObject(target_list[selectTarget.selectedIndex])
+            FileManager.loadObject(target_list[selectTarget.selectedIndex])
         }
 
 
