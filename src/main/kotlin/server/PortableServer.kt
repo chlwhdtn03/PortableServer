@@ -158,7 +158,7 @@ class PortableServer(VERSION: String, PORT: Int) {
     }
 
     fun recordVisitor(request: RoutingContext) {
-        bootstrap?.recordVisitor(request.request().remoteAddress().hostAddress(), request.request().uri(), request.statusCode())
+        bootstrap?.recordVisitor(request.request().remoteAddress().hostAddress(), request.request().uri(), if(request.statusCode() == -1) "" else request.statusCode().toString())
     }
 
 
