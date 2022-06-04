@@ -13,6 +13,7 @@ import io.vertx.core.http.HttpServerResponse
 import io.vertx.ext.web.Route
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
+import io.vertx.ext.web.handler.StaticHandler
 import ui.Bootstrap
 import java.nio.charset.StandardCharsets
 
@@ -29,7 +30,7 @@ class PortableServer(VERSION: String, PORT: Int) {
 
         fun addRoute(routerObject: RouterObject) {
             if(routerObject.type == RouterType.GET || routerObject.type  == RouterType.GET_POST) {
-                router.get("/" + routerObject.address).handler { requesthandler ->
+                router.get("/" + routerObject.address).setName("custom").handler { requesthandler ->
                     val response = requesthandler.response()
                     response.putHeader("content-type","text/plain;charset=utf-8")
                     if(routerObject.target_object == null)
@@ -39,7 +40,7 @@ class PortableServer(VERSION: String, PORT: Int) {
                 }
             }
             if(routerObject.type == RouterType.POST || routerObject.type == RouterType.GET_POST) {
-                router.post("/" + routerObject.address).handler { requesthandler ->
+                router.post("/" + routerObject.address).setName("custom").handler { requesthandler ->
                     val response = requesthandler.response()
                     response.putHeader("content-type","text/plain;charset=utf-8")
                     if(routerObject.target_object == null)
@@ -52,7 +53,8 @@ class PortableServer(VERSION: String, PORT: Int) {
 
         fun resetRouter() {
             router.routes.onEach {
-                if(!(it.path == "/" || it.path == "/admin"))
+                println(it.name)
+                if(it.name == "custom")
                     it.remove()
             }
             println("All of Router had reset")
@@ -60,18 +62,20 @@ class PortableServer(VERSION: String, PORT: Int) {
     }
     init {
 
-        router.route().handler() {
+
+        router.route().order(0).handler {
             recordVisitor(it)
             it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
         }
 
-        router.route("/").handler { requesthandler ->
+        router.get("/").handler { requesthandler ->
             val response = requesthandler.response()
             response.putHeader("content-type", "text/plain")
             response.end("Opened by PortableServer $VERSION !")
         }
 
-        router.route("/admin").handler { requesthandler ->
+
+        router.get("/admin").handler { requesthandler ->
             val response = requesthandler.response()
             response.putHeader("content-type", "text/plain")
             response.end("""
@@ -82,10 +86,10 @@ class PortableServer(VERSION: String, PORT: Int) {
         }
 
 
+
         server.requestHandler(router).listen(PORT).onComplete {
             println("Server Opened in port $PORT")
             println("URL : http://localhost/")
-
         }
 
 
