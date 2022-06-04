@@ -136,5 +136,20 @@ class FileManager {
             return true
         }
 
+        fun getRequestObject(objectname: String, primarykey: String): String {
+            val dir: File = File("data/${objectname}/")
+            if (!dir.isDirectory)
+                dir.mkdirs()
+            val file: File = File("data/${objectname}/${primarykey}.txt")
+            if (!file.exists()) {
+                return ""
+            }
+
+            val bw = BufferedReader(FileReader(file))
+            val result = bw.readLine()
+            bw.close()
+            return result
+        }
+
     }
 }

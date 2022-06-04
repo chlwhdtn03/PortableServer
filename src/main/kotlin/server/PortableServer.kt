@@ -7,6 +7,7 @@ import data.TriggerType
 import file.FileManager
 import io.vertx.core.Vertx
 import io.vertx.core.buffer.Buffer
+import io.vertx.core.http.HttpMethod
 import io.vertx.core.http.HttpServer
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
@@ -27,25 +28,33 @@ class PortableServer(VERSION: String, PORT: Int) {
         val router:Router = Router.router(vertx)
 
         fun addRoute(routerObject: RouterObject) {
-            if(routerObject.type == RouterMethod.GET || routerObject.type  == RouterMethod.GET_POST) {
-                router.get("/" + routerObject.address).setName("custom").handler { requesthandler ->
-                    val response = requesthandler.response()
-                    response.putHeader("content-type","text/html;charset=utf-8")
-                    if(routerObject.target_object == null)
-                        response.end(routerObject.message.ifEmpty { "라우터 설정에서 메세지를 추가하실 수 있습니다." })
-                    else
-                        response.end("GET for ${routerObject.target_object}")
+
+            val route = router.route("/"+routerObject.address)
+            when(routerObject.type) {
+                RouterMethod.GET -> {
+                    route.method(HttpMethod.GET)
+                }
+                RouterMethod.POST -> {
+                    route.method(HttpMethod.POST)
+                }
+                RouterMethod.GET_POST -> {
+                    route.method(HttpMethod.POST).method(HttpMethod.GET)
+                }
+                RouterMethod.UPDATE -> {
+                    route.method(HttpMethod.UPDATE)
+                }
+                RouterMethod.DELETE -> {
+                    route.method(HttpMethod.UPDATE)
                 }
             }
-            if(routerObject.type == RouterMethod.POST || routerObject.type == RouterMethod.GET_POST) {
-                router.post("/" + routerObject.address).setName("custom").handler { requesthandler ->
-                    val response = requesthandler.response()
-                    response.putHeader("content-type","text/html;charset=utf-8")
-                    if(routerObject.target_object == null) {
-                        response.end(routerObject.message.ifEmpty { "라우터 설정에서 메세지를 추가하실 수 있습니다." })
-                    } else {
-                        val request = requesthandler.request()
-                        when (routerObject.target_trigger) {
+            route.setName("custom").handler { requesthandler ->
+                val response = requesthandler.response()
+                response.putHeader("content-type","text/plain;charset=utf-8")
+                if(routerObject.target_object == null) {
+                    response.end(routerObject.message.ifEmpty { "라우터 설정에서 메세지를 추가하실 수 있습니다." })
+                } else {
+                    val request = requesthandler.request()
+                    when (routerObject.target_trigger) {
                             TriggerType.ADD_DATA -> {
                                 var now_varname = ""
                                 var temp_str = ""
@@ -71,13 +80,31 @@ class PortableServer(VERSION: String, PORT: Int) {
                                     data.put(now_varname, temp_str)
 
                                 }
-                                FileManager.addRequestObject(routerObject.target_object.name, primary_key, data.toString())
-                                response.statusCode = 200
-                                response.end("데이터를 성공적으로 추가하였습니다.")
+                                if(FileManager.addRequestObject(routerObject.target_object.name, primary_key, data.toString())) {
+                                    response.statusCode = 200
+                                    response.end("데이터를 성공적으로 추가하였습니다.")
+                                } else {
+                                    response.statusCode = 403
+                                    response.end("이미 존재하는 데이터입니다. 일반키가 겹치는지 확인하세요")
+                                }
                             }
                             TriggerType.GET_DATA -> {
+                                var primary_key = request.getParam(routerObject.target_object.varNames[0], "")
+                                if(primary_key.isEmpty()) {
+                                    response.statusCode = 412
+                                    response.end(routerObject.target_object.varNames[0] + " 필드가 비어있습니다.")
+                                    return@handler
+                                }
 
-
+                                var result:String = FileManager.getRequestObject(routerObject.target_object.name, primary_key)
+                                if(result.trim().isNotEmpty()) {
+                                    response.statusCode = 200
+                                    println(result)
+                                    response.end(result)
+                                } else {
+                                    response.statusCode = 403
+                                    response.end("존재하지 않는 데이터입니다.")
+                                }
                             }
                             TriggerType.CHECK_DATA_BY_PRIMARY_KEY -> {
 
@@ -91,9 +118,8 @@ class PortableServer(VERSION: String, PORT: Int) {
 
 
                             }
+                            null -> TODO()
                         }
-
-                    }
                 }
             }
         }
@@ -111,6 +137,7 @@ class PortableServer(VERSION: String, PORT: Int) {
 
         router.route().order(0).handler(BodyHandler.create().setBodyLimit(500)).handler {
 
+
             recordVisitor(it)
             it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
         }.failureHandler {
@@ -118,10 +145,15 @@ class PortableServer(VERSION: String, PORT: Int) {
             it.response().isChunked = true
             it.response().putHeader("content-type","text/html;charset=utf-8")
             it.response().write("${it.statusCode()} ERROR")
-            it.response().write("<br><hr>")
             when (it.statusCode()) {
                 413 -> {
                     it.response().write("너무 큰 요청 사이즈")
+                }
+                403 -> {
+                    it.response().write("금지된 접근")
+                }
+                401 -> {
+                    it.response().write("권한 없음")
                 }
 
             }
@@ -130,8 +162,8 @@ class PortableServer(VERSION: String, PORT: Int) {
 
         router.get("/").handler { requesthandler ->
             val response = requesthandler.response()
-            response.putHeader("content-type", "text/plain")
-            response.end("Opened by PortableServer $VERSION !")
+            response.putHeader("content-type", "text/html")
+            response.end("Opened by PortableServer $VERSION !<br>Route size:${router.routes.size}")
         }
 
 
