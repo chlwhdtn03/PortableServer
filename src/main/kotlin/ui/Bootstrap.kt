@@ -111,8 +111,8 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         (listener_tree.model as DefaultTreeModel).reload(treeNode)
     }
 
-    public fun recordVisitor(visitor: String, routername: String) {
-        visitor_list = visitor_list.plus("$visitor [$routername]\n")
+    public fun recordVisitor(visitor: String, routername: String, statuscode: Int) {
+        visitor_list = visitor_list.plus("$visitor [$routername]\n - $statuscode")
         visitor_area.setListData(visitor_list)
         visitor_area.selectedIndex = visitor_list.indices.last
     }

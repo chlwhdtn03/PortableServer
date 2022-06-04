@@ -109,12 +109,24 @@ class PortableServer(VERSION: String, PORT: Int) {
     }
     init {
 
-        router.route().order(0).handler(BodyHandler.create())
-//        router.route().handler {
-////            recordVisitor(it)
-//            BodyHandler.create().setBodyLimit(100)
-//            it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
-//        }
+        router.route().order(0).handler(BodyHandler.create().setBodyLimit(100)).handler {
+
+            recordVisitor(it)
+            it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
+        }.failureHandler {
+            recordVisitor(it)
+            it.response().isChunked = true
+            it.response().putHeader("content-type","text/html;charset=utf-8")
+            it.response().write("${it.statusCode()} ERROR")
+            it.response().write("<br><hr>")
+            when (it.statusCode()) {
+                413 -> {
+                    it.response().write("너무 큰 요청 사이즈")
+                }
+
+            }
+            it.response().end()
+        }
 
         router.get("/").handler { requesthandler ->
             val response = requesthandler.response()
@@ -146,7 +158,7 @@ class PortableServer(VERSION: String, PORT: Int) {
     }
 
     fun recordVisitor(request: RoutingContext) {
-        bootstrap?.recordVisitor(request.request().remoteAddress().hostAddress(), request.request().absoluteURI())
+        bootstrap?.recordVisitor(request.request().remoteAddress().hostAddress(), request.request().uri(), request.statusCode())
     }
 
 

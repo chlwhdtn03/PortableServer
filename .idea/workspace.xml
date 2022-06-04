@@ -10,16 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="라우터, 오브젝트 추가 GUI 수정&#10;트리거 행동 추가&#10;트리거 대상 추가&#10;ADD_DATA에 대한 행동 구현 완료">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/TriggerType.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/PortableObject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/PortableObject.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/RouterObject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/RouterObject.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/RouterType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/RouterMethod.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyRouterGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyRouterGUI.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -271,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654306900718</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="라우터, 오브젝트 추가 GUI 수정&#10;트리거 행동 추가&#10;트리거 대상 추가&#10;ADD_DATA에 대한 행동 구현 완료">
+      <created>1654322459734</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1654322459734</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
