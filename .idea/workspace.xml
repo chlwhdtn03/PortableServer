@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="상태 코드가 -1로 뜨던 문제 수정">
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="GET_DATA 구현완료">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
@@ -292,7 +292,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654334396281</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="GET_DATA 구현완료">
+      <created>1654337141229</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1654337141229</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -327,7 +334,8 @@
     <MESSAGE value="BodyLimit 500" />
     <MESSAGE value="상태 코드가 -1로 뜨던 문제" />
     <MESSAGE value="상태 코드가 -1로 뜨던 문제 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="상태 코드가 -1로 뜨던 문제 수정" />
+    <MESSAGE value="GET_DATA 구현완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="GET_DATA 구현완료" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

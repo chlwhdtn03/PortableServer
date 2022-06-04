@@ -132,6 +132,7 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
                 val str = Json.encodeToString(data)
                 FileManager.saveObject(field_name.text.trim(), str)
                 parent.object_list.setListData(parent.loadPortableObjectList())
+                parent.loadRouterList()
                 dispose()
             } else {
                 hintlabel.text = "최소 1개의 멤버가 필요합니다."

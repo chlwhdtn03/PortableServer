@@ -98,9 +98,14 @@ class PortableServer(VERSION: String, PORT: Int) {
 
                                 var result:String = FileManager.getRequestObject(routerObject.target_object.name, primary_key)
                                 if(result.trim().isNotEmpty()) {
+                                    val json = io.vertx.core.json.JsonObject(result)
+                                    for(i in routerObject.target_object.varProvide.indices) {
+                                       if(!routerObject.target_object.varProvide[i]) {
+                                           json.remove(routerObject.target_object.varNames[i])
+                                       }
+                                    }
                                     response.statusCode = 200
-                                    println(result)
-                                    response.end(result)
+                                    response.end(json.toString())
                                 } else {
                                     response.statusCode = 403
                                     response.end("존재하지 않는 데이터입니다.")

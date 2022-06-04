@@ -42,7 +42,8 @@ class FileManager {
             val s = br.readLine()
             br.close()
             println(s)
-            return Json.decodeFromString<RouterObject>(s)
+            var loaded = Json.decodeFromString<RouterObject>(s)
+            return RouterObject(loaded.name, loaded.address, loaded.type, loaded.target_object?.let { loadObject(it.name) }, loaded.target_trigger, loaded.target_data)
         }
 
         fun loadRouters(): Array<String> {
