@@ -149,19 +149,8 @@ class PortableServer(VERSION: String, PORT: Int) {
             recordVisitor(it)
             it.response().isChunked = true
             it.response().putHeader("content-type","text/html;charset=utf-8")
-            it.response().write("${it.statusCode()} ERROR")
-            when (it.statusCode()) {
-                413 -> {
-                    it.response().write("너무 큰 요청 사이즈")
-                }
-                403 -> {
-                    it.response().write("금지된 접근")
-                }
-                401 -> {
-                    it.response().write("권한 없음")
-                }
+            it.response().write("${it.statusCode()} ERROR\n${errorMessage(it.statusCode())}")
 
-            }
             it.response().end()
         }
 
@@ -198,6 +187,23 @@ class PortableServer(VERSION: String, PORT: Int) {
         bootstrap?.recordVisitor(request.request().remoteAddress().hostAddress(), request.request().uri(), if(request.statusCode() == -1) "" else request.statusCode().toString())
     }
 
+    private fun errorMessage(statuscode: Int) : String {
+        return when (statuscode) {
+            413 -> {
+                "너무 큰 요청 사이즈"
+            }
+            403 -> {
+                "금지된 접근"
+            }
+            401 -> {
+                "권한 없음"
+            }
+
+            else -> {
+                "알 수 없는 원인"
+            }
+        }
+    }
 
 
 }

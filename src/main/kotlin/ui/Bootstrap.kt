@@ -112,7 +112,7 @@ class Bootstrap(private val VERSION: String) : JFrame() {
     }
 
     public fun recordVisitor(visitor: String, routername: String, status: String) {
-        visitor_list = visitor_list.plus("$visitor [$routername]\n - $status")
+        visitor_list = visitor_list.plus("$visitor [$routername]\n $status")
         visitor_area.setListData(visitor_list)
         visitor_area.selectedIndex = visitor_list.indices.last
     }
