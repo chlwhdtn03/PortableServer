@@ -153,6 +153,20 @@ class FileManager {
             return true
         }
 
+        fun removeRequestObject(objectname: String, primarykey: String): Boolean {
+            val dir: File = File("data/${objectname}/")
+            if (!dir.isDirectory)
+                dir.mkdirs()
+            val file: File = File("data/${objectname}/${primarykey}.txt")
+            if (!file.exists()) {
+                return false
+            }
+
+            return file.delete()
+
+            return true
+        }
+
         fun getRequestObject(objectname: String, primarykey: String): String {
             val dir: File = File("data/${objectname}/")
             if (!dir.isDirectory)

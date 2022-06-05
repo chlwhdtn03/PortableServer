@@ -182,7 +182,19 @@ class PortableServer(VERSION: String, PORT: Int) {
 
                             }
                             TriggerType.REMOVE_DATA -> {
-
+                                var primary_key = request.getParam(routerObject.target_object.varNames[0], "")
+                                if(primary_key.isEmpty()) {
+                                    response.statusCode = 412
+                                    response.end(routerObject.target_object.varNames[0] + " 필드가 비어있습니다.")
+                                    return@handler
+                                }
+                                if(FileManager.removeRequestObject(routerObject.target_object.name, primary_key)) {
+                                    response.statusCode = 200
+                                    response.end(Json.encodeToString(PortableResponse(200, true, "삭제 되었습니다.")))
+                                } else {
+                                    response.statusCode = 200
+                                    response.end(Json.encodeToString(PortableResponse(200, false, "삭제되지 못했습니다.")))
+                                }
 
                             }
                             null -> TODO()
