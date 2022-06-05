@@ -147,6 +147,37 @@ class PortableServer(VERSION: String, PORT: Int) {
 
                             }
                             TriggerType.MODIFY_DATA_BY_PRIMARY_KEY -> {
+                                var primary_key = request.getParam(routerObject.target_object.varNames[0], "")
+                                if(primary_key.isEmpty()) {
+                                    response.statusCode = 412
+                                    response.end(routerObject.target_object.varNames[0] + " 필드가 비어있습니다.")
+                                    return@handler
+                                }
+                                var target:String = FileManager.getRequestObject(routerObject.target_object.name, primary_key)
+                                if(target.isEmpty()) {
+                                    response.statusCode = 403
+                                    response.end("존재하지 않는 데이터입니다.")
+                                    return@handler
+                                }
+                                val json = io.vertx.core.json.JsonObject(target)
+
+                                var changed: Array<String> = emptyArray()
+                                for(i in 1 until routerObject.target_object.varNames.size) {
+                                    var input_data = request.getParam(routerObject.target_object.varNames[i], "")
+                                    if(input_data.isEmpty())
+                                        continue
+                                    json.remove(routerObject.target_object.varNames[i])
+                                    json.put(routerObject.target_object.varNames[i], input_data)
+                                    changed = changed.plus(routerObject.target_object.varNames[i])
+                                }
+                                if(changed.isEmpty()) {
+                                    response.statusCode = 200
+                                    response.end(Json.encodeToString(PortableResponse(200, false, "변경된 값이 없습니다")))
+                                } else {
+                                    response.statusCode = 200
+                                    FileManager.modifyRequestObject(routerObject.target_object.name, primary_key, json.toString())
+                                    response.end(Json.encodeToString(PortableResponse(200, true, changed.joinToString(",") + " 변경됨")))
+                                }
 
 
                             }

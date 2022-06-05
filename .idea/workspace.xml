@@ -9,9 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="에러메세지 관리">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/data/PortableResponse.kt" afterDir="false" />
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="CHECK_DATA 구현">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -315,7 +315,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654413955181</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="CHECK_DATA 구현">
+      <created>1654415301106</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1654415301106</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -353,7 +360,8 @@
     <MESSAGE value="GET_DATA 구현완료" />
     <MESSAGE value="보안 사용에 따른 데이터 제공 제한 구현&#10;FileManager.kt 에서 라우터를 불러올때, 라우터가 생성됬을 때의 타겟 오브젝트를 그대로 가지고 있어, 타겟 오브젝트가 변해도 라우터에 반영되지 않던 문제 해결" />
     <MESSAGE value="에러메세지 관리" />
-    <option name="LAST_COMMIT_MESSAGE" value="에러메세지 관리" />
+    <MESSAGE value="CHECK_DATA 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="CHECK_DATA 구현" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

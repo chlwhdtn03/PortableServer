@@ -137,6 +137,22 @@ class FileManager {
             return true
         }
 
+        fun modifyRequestObject(objectname: String, primarykey: String, requestobjectjson: String): Boolean {
+            val dir: File = File("data/${objectname}/")
+            if (!dir.isDirectory)
+                dir.mkdirs()
+            val file: File = File("data/${objectname}/${primarykey}.txt")
+            if (!file.exists()) {
+                return false
+            }
+
+            val bw = BufferedWriter(FileWriter(file))
+            bw.write(requestobjectjson)
+            bw.flush()
+            bw.close()
+            return true
+        }
+
         fun getRequestObject(objectname: String, primarykey: String): String {
             val dir: File = File("data/${objectname}/")
             if (!dir.isDirectory)
