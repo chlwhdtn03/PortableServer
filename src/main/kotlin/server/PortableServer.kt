@@ -1,9 +1,6 @@
 package server
 
-import data.PortableObject
-import data.RouterObject
-import data.RouterMethod
-import data.TriggerType
+import data.*
 import file.FileManager
 import io.vertx.core.Vertx
 import io.vertx.core.buffer.Buffer
@@ -13,6 +10,9 @@ import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.BodyHandler
 import io.vertx.kotlin.core.buffer.appendJson
+import io.vertx.kotlin.core.json.get
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import ui.Bootstrap
 
@@ -112,7 +112,38 @@ class PortableServer(VERSION: String, PORT: Int) {
                                 }
                             }
                             TriggerType.CHECK_DATA_BY_PRIMARY_KEY -> {
+                                var primary_key = request.getParam(routerObject.target_object.varNames[0], "")
+                                if(primary_key.isEmpty()) {
+                                    response.statusCode = 412
+                                    response.end(routerObject.target_object.varNames[0] + " 필드가 비어있습니다.")
+                                    return@handler
+                                }
 
+                                var input_data = request.getParam(routerObject.target_data, "")
+                                if(input_data.isEmpty()) {
+                                    response.statusCode = 412
+                                    response.end("${routerObject.target_data} 필드가 비어있습니다.")
+                                    return@handler
+                                }
+                                var target:String = FileManager.getRequestObject(routerObject.target_object.name, primary_key)
+                                if(target.trim().isNotEmpty()) {
+
+                                    val json = io.vertx.core.json.JsonObject(target)
+                                    var check_data = json.getValue(routerObject.target_data)
+                                    if(check_data.toString() == input_data.toString()) {
+
+                                        response.statusCode = 200
+                                        response.end(Json.encodeToString(PortableResponse(200, true, "값이 일치합니다.")))
+                                    } else {
+
+                                        response.statusCode = 200
+                                        response.end(Json.encodeToString(PortableResponse(200, false, "값이 일치하지 않습니다.")))
+                                    }
+
+                                } else {
+                                    response.statusCode = 200
+                                    response.end(Json.encodeToString(PortableResponse(200, false, "값이 일치하지 않습니다.")))
+                                }
 
                             }
                             TriggerType.MODIFY_DATA_BY_PRIMARY_KEY -> {
