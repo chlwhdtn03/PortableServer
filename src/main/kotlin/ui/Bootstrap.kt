@@ -10,7 +10,12 @@ import java.awt.Dimension
 import java.awt.Font
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
+import java.io.BufferedOutputStream
+import java.io.OutputStreamWriter
+import java.io.PipedInputStream
+import java.io.PipedOutputStream
 import java.io.PrintStream
+import java.io.PrintWriter
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.SocketException
@@ -136,7 +141,6 @@ class Bootstrap(private val VERSION: String) : PortableFrame() {
     private fun settingComponentSize() {
         consolePanel.preferredSize = consolePanel.size
         visitorPanel.preferredSize = visitorPanel.size
-
     }
 
     private fun initConsoleComponent(frame: JFrame) {
@@ -146,11 +150,16 @@ class Bootstrap(private val VERSION: String) : PortableFrame() {
         console_scroll.verticalScrollBar.setUI(PortableScrollbarUI())
 
         /**
-         *  모든 출력로그를 JTextArea에 출력
+         *  == 모든 출력로그를 JTextArea에 출력 ==
          */
-        val ps = PrintStream(BootstrapPrintStream(console_area))
-//        System.setErr(ps)
-//        System.setOut(ps)
+        val ps = PrintStream(BootstrapPrintStream(console_area), true)
+        System.setErr(ps)
+        System.setOut(ps)
+        println("PrintStream Loaded")
+
+        /**
+         * ====
+         */
 
         console_area.isEditable = false
 
@@ -307,8 +316,8 @@ class Bootstrap(private val VERSION: String) : PortableFrame() {
     }
 
     private fun setAllFont() {
-        var font = Font("맑은 고딕",Font.PLAIN,14)
-        UIManager.getLookAndFeelDefaults()["defaultFont"] = Font("맑은 고딕", Font.BOLD, 14)
+//        var font = Font("맑은 고딕",Font.PLAIN,14)
+//        UIManager.getLookAndFeelDefaults()["defaultFont"] = Font("맑은 고딕", Font.BOLD, 14)
     }
 
 }
