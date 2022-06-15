@@ -3,6 +3,7 @@ package ui
 import data.PortableObject
 import data.RouterObject
 import file.FileManager
+import org.pushingpixels.radiance.swing.ktx.swing.addAction
 import server.PortableServer
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -23,7 +24,7 @@ import javax.swing.tree.TreeModel
 import javax.swing.tree.TreeNode
 
 
-class Bootstrap(private val VERSION: String) : JFrame() {
+class Bootstrap(private val VERSION: String) : PortableFrame() {
     val objects: MutableList<PortableObject> = ArrayList<PortableObject>()
     val routers: MutableList<RouterObject> = ArrayList<RouterObject>()
 
@@ -58,6 +59,7 @@ class Bootstrap(private val VERSION: String) : JFrame() {
     val listener_leftpanel = JPanel()
     val listener_rightpanel = JPanel()
 
+
     init {
         setAllFont()
         title = "PortableServer $VERSION"
@@ -72,6 +74,10 @@ class Bootstrap(private val VERSION: String) : JFrame() {
         initConsoleComponent(this)
         initListenerComponent(this)
         initVisitorComponent(this)
+
+        val menu_bar = JMenuBar()
+        menu_bar.add(SkinComboSelector())
+        jMenuBar = menu_bar
 
         isVisible = true
 

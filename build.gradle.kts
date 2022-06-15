@@ -18,6 +18,12 @@ dependencies {
     implementation("io.vertx:vertx-core:4.3.1")
     implementation("io.vertx:vertx-lang-kotlin:4.3.1")
     implementation("io.vertx:vertx-web:4.3.1")
+
+    implementation("org.pushing-pixels:radiance-common:5.0.0")
+    implementation("org.pushing-pixels:radiance-swing-ktx:5.0.0")
+
+    implementation("org.pushing-pixels:radiance-theming:5.0.0")
+    implementation("org.pushing-pixels:radiance-theming-ktx:5.0.0")
 }
 
 tasks.test {

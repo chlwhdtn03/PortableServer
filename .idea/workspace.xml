@@ -9,9 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="MODIFY_DATA 구현">
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="REMOVE_DATA 구현">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/SkinComboSelector.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ListenerGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableFrame.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,9 +62,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Enum" />
         <option value="Kotlin Data Class" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -328,7 +332,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654416763532</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="REMOVE_DATA 구현">
+      <created>1654417004855</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1654417004855</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -343,7 +354,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="GUI 필수 요소" />
     <MESSAGE value="JList에서 JTree로 변경" />
     <MESSAGE value="오브젝트 확인 UI 추가" />
     <MESSAGE value="오브젝트 저장, 로드" />
@@ -368,7 +378,8 @@
     <MESSAGE value="에러메세지 관리" />
     <MESSAGE value="CHECK_DATA 구현" />
     <MESSAGE value="MODIFY_DATA 구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="MODIFY_DATA 구현" />
+    <MESSAGE value="REMOVE_DATA 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="REMOVE_DATA 구현" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
