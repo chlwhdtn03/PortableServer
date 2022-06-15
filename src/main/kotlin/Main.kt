@@ -13,10 +13,10 @@ fun main(args: Array<String>) {
         SwingUtilities.invokeLater {
                 val bootstrap = Bootstrap(VERSION)
 
-                println("Checking HTTPS key")
+                println("Checking HTTPS key...")
                 println("Initing HTTP Server...")
 
-                if(bootstrap.isActive) {
+                if(bootstrap.isVisible) {
                         println("GUI 활성화")
                         PortableServer(VERSION, port, bootstrap)
                 } else {
@@ -24,6 +24,4 @@ fun main(args: Array<String>) {
                         PortableServer(VERSION, port)
                 }
         }
-
-
 }

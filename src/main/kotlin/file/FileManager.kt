@@ -41,7 +41,7 @@ class FileManager {
             val br = BufferedReader(FileReader(file))
             val s = br.readLine()
             br.close()
-            println(s)
+//            println(s)
             var loaded = Json.decodeFromString<RouterObject>(s)
             return RouterObject(loaded.name, loaded.address, loaded.type, loaded.target_object?.let { loadObject(it.name) }, loaded.target_trigger, loaded.target_data)
         }
@@ -91,7 +91,7 @@ class FileManager {
             val br = BufferedReader(FileReader(file))
             val s = br.readLine()
             br.close()
-            println(s)
+//            println(s)
             return Json.decodeFromString<PortableObject>(s)
         }
 
