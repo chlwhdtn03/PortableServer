@@ -3,7 +3,7 @@ import ui.Bootstrap
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
-private const val VERSION: String = "0.1 SNAPSHOT"
+private const val VERSION: String = "1.1 SNAPSHOT"
 private const val port: Int = 80
 
 fun main(args: Array<String>) {
