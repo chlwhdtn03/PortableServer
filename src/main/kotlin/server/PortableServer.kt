@@ -3,18 +3,31 @@ package server
 import data.*
 import file.FileManager
 import io.vertx.core.Vertx
-import io.vertx.core.buffer.Buffer
 import io.vertx.core.http.HttpMethod
 import io.vertx.core.http.HttpServer
+import io.vertx.core.http.HttpServerOptions
+import io.vertx.core.net.JksOptions
+import io.vertx.core.net.KeyCertOptions
+import io.vertx.core.net.PfxOptions
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.BodyHandler
-import io.vertx.kotlin.core.buffer.appendJson
-import io.vertx.kotlin.core.json.get
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
 import ui.Bootstrap
+import java.io.ByteArrayInputStream
+import java.io.DataInputStream
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.security.KeyFactory
+import java.security.KeyStore
+import java.security.PrivateKey
+import java.security.cert.Certificate
+import java.security.cert.CertificateFactory
+import java.security.cert.X509Certificate
+import java.security.spec.PKCS8EncodedKeySpec
+import kotlin.random.Random
+
 
 class PortableServer(VERSION: String, PORT: Int) {
     var bootstrap: Bootstrap? = null
@@ -23,9 +36,30 @@ class PortableServer(VERSION: String, PORT: Int) {
     }
 
     companion object {
+        private const val storeName = "tempStore.jks"
+        private val storePassword = generateKeyStore(10)
+        private const val storeType = "jks"
+
         val vertx: Vertx = Vertx.vertx()
-        val server:HttpServer = vertx.createHttpServer()
+        val server:HttpServer = vertx.createHttpServer(
+            HttpServerOptions()
+                .setSsl(true)
+                .setPfxKeyCertOptions(
+                    PfxOptions()
+                        .setPath("tempStore.pkcs12")
+                        .setPassword("123011")
+                        .setAlias("portableserver")
+                        .setAliasPassword("123011")
+                )
+                .setPfxTrustOptions(
+                    PfxOptions()
+                        .setPath("tempTrust.pkcs12")
+                        .setPassword("123011")
+                        .setAlias("portabletrust")
+                        .setAliasPassword("123011")
+                ))
         val router:Router = Router.router(vertx)
+
 
         fun addRoute(routerObject: RouterObject) {
 
@@ -211,6 +245,65 @@ class PortableServer(VERSION: String, PORT: Int) {
             }
             println("All of Router had reset")
         }
+
+        private fun generateKeyStore(n: Int): String {
+            val characterSet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@^"
+
+            val random = Random(System.nanoTime())
+            val password = StringBuilder()
+
+            for (i in 0 until n) {
+                val rIndex = random.nextInt(characterSet.length)
+                password.append(characterSet[rIndex])
+            }
+
+            println("Creating HTTPS key...")
+//            val fileOutputStream = FileOutputStream(storeName)
+//            val fileInputStream = FileInputStream(storeName)
+//            val keystore = KeyStore.getInstance(storeType)
+//            keystore.load(null, password.toString().toCharArray())
+//            keystore.store(fileOutputStream, password.toString().toCharArray())
+//            keystore.load(fileInputStream, password.toString().toCharArray())
+//            println("Created HTTPS key : ${password.toString()}")
+
+//            val fis = FileInputStream("pkey.der")
+//            val dis = DataInputStream(fis)
+//            val bytes = ByteArray(dis.available())
+//            dis.readFully(bytes)
+//            val bais = ByteArrayInputStream(bytes)
+//
+//            val key = ByteArray(bais.available())
+//            val kf: KeyFactory = KeyFactory.getInstance("RSA")
+//            bais.read(key, 0, bais.available())
+//            bais.close()
+//
+//            val keysp = PKCS8EncodedKeySpec(key)
+//            val ff: PrivateKey = kf.generatePrivate(keysp)
+//
+//
+//            // read the certificates from the files and load them into the key store:
+//            val col_crt1 = CertificateFactory.getInstance("X509").generateCertificates(FileInputStream("cert1.pem"))
+//            val col_crt2 = CertificateFactory.getInstance("X509").generateCertificates(FileInputStream("cert2.pem"))
+//
+//            val crt1: Certificate = col_crt1.iterator().next() as Certificate
+//            val crt2: Certificate = col_crt2.iterator().next() as Certificate
+//            val chain: Array<Certificate> = arrayOf<Certificate>(crt1, crt2)
+//
+//            val alias1: String = (crt1 as X509Certificate).subjectX500Principal.name
+//            val alias2: String = (crt2 as X509Certificate).subjectX500Principal.name
+//
+//            keystore.setCertificateEntry(alias1, crt1)
+//            keystore.setCertificateEntry(alias2, crt2)
+//
+//            // store the private key
+//            keystore.setKeyEntry("tempAlias", ff, password.toString().toCharArray(), chain)
+//
+//            // save the key store to a file
+//            keystore.store(FileOutputStream(storeName), password.toString().toCharArray())
+
+            return password.toString()
+        }
+
     }
     init {
 
@@ -231,7 +324,7 @@ class PortableServer(VERSION: String, PORT: Int) {
         router.get("/").handler { requesthandler ->
             val response = requesthandler.response()
             response.putHeader("content-type", "text/html")
-            response.end("Opened by PortableServer $VERSION !<br>Route size:${router.routes.size}")
+            response.end("Opened by server.PortableServer $VERSION !<br>Route size:${router.routes.size}")
         }
 
 
@@ -248,8 +341,10 @@ class PortableServer(VERSION: String, PORT: Int) {
 
 
         server.requestHandler(router).listen(PORT).onComplete {
-            println("Server Opened in port $PORT")
-            println("URL : http://localhost/")
+            println("Server Opened in port ${PORT}")
+            println("URL : https://localhost")
+        }.onFailure {
+            println(it.message)
         }
 
 

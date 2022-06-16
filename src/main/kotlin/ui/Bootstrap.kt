@@ -3,19 +3,12 @@ package ui
 import data.PortableObject
 import data.RouterObject
 import file.FileManager
-import org.pushingpixels.radiance.swing.ktx.swing.addAction
 import server.PortableServer
 import java.awt.BorderLayout
 import java.awt.Dimension
-import java.awt.Font
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import java.io.BufferedOutputStream
-import java.io.OutputStreamWriter
-import java.io.PipedInputStream
-import java.io.PipedOutputStream
 import java.io.PrintStream
-import java.io.PrintWriter
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.SocketException
@@ -25,8 +18,6 @@ import javax.swing.*
 import javax.swing.border.TitledBorder
 import javax.swing.tree.DefaultMutableTreeNode
 import javax.swing.tree.DefaultTreeModel
-import javax.swing.tree.TreeModel
-import javax.swing.tree.TreeNode
 
 
 class Bootstrap(private val VERSION: String) : PortableFrame() {
@@ -81,7 +72,15 @@ class Bootstrap(private val VERSION: String) : PortableFrame() {
         initVisitorComponent(this)
 
         val menu_bar = JMenuBar()
+        val menu_1 = JMenu("설정")
+        val menu_item_cert = JMenuItem("인증서 설정")
+        menu_bar.add(menu_1)
+        menu_1.add(menu_item_cert)
         menu_bar.add(SkinComboSelector())
+        menu_item_cert.addActionListener {
+            SettingGUI()
+        }
+
         jMenuBar = menu_bar
 
         isVisible = true
@@ -130,7 +129,7 @@ class Bootstrap(private val VERSION: String) : PortableFrame() {
 
     private fun settingComponentListener() {
         object_addBtn.addActionListener {
-            ModifyObjectGUI(this,"New Object")
+            ModifyObjectGUI(this, "New Object")
         }
 
         listener_addBtn.addActionListener {
@@ -188,7 +187,13 @@ class Bootstrap(private val VERSION: String) : PortableFrame() {
         val listener_popup = JPopupMenu()
         val listener_item_modify = JMenuItem("Modify")
         listener_item_modify.addActionListener {
-            ModifyRouterGUI(this, FileManager.loadRouter((listener_tree.lastSelectedPathComponent as DefaultMutableTreeNode).userObject.toString().split(" (")[0].trim()))
+            ModifyRouterGUI(
+                this,
+                FileManager.loadRouter(
+                    (listener_tree.lastSelectedPathComponent as DefaultMutableTreeNode).userObject.toString()
+                        .split(" (")[0].trim()
+                )
+            )
         }
         val listener_item_delete = JMenuItem("Delete")
         listener_item_delete.addActionListener {

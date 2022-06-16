@@ -4,7 +4,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRenderer
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo
 import java.awt.Component
-import java.awt.event.ActionEvent
 import javax.swing.JComboBox
 import javax.swing.JList
 import javax.swing.SwingUtilities
