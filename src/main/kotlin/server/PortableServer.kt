@@ -42,22 +42,23 @@ class PortableServer(VERSION: String, PORT: Int) {
 
         val vertx: Vertx = Vertx.vertx()
         val server:HttpServer = vertx.createHttpServer(
-            HttpServerOptions()
-                .setSsl(true)
-                .setPfxKeyCertOptions(
-                    PfxOptions()
-                        .setPath("tempStore.pkcs12")
-                        .setPassword("123011")
-                        .setAlias("portableserver")
-                        .setAliasPassword("123011")
-                )
-                .setPfxTrustOptions(
-                    PfxOptions()
-                        .setPath("tempTrust.pkcs12")
-                        .setPassword("123011")
-                        .setAlias("portabletrust")
-                        .setAliasPassword("123011")
-                ))
+//            HttpServerOptions()
+//                .setSsl(true)
+//                .setPfxKeyCertOptions(
+//                    PfxOptions()
+//                        .setPath("tempStore.pkcs12")
+//                        .setPassword("123011")
+//                        .setAlias("portableserver")
+//                        .setAliasPassword("123011")
+//                )
+//                .setPfxTrustOptions(
+//                    PfxOptions()
+//                        .setPath("tempTrust.pkcs12")
+//                        .setPassword("123011")
+//                        .setAlias("portabletrust")
+//                        .setAliasPassword("123011")
+//                )
+        )
         val router:Router = Router.router(vertx)
 
 
@@ -324,7 +325,7 @@ class PortableServer(VERSION: String, PORT: Int) {
         router.get("/").handler { requesthandler ->
             val response = requesthandler.response()
             response.putHeader("content-type", "text/html")
-            response.end("Opened by server.PortableServer $VERSION !<br>Route size:${router.routes.size}")
+            response.end("Opened by PortableServer $VERSION !<br>Route size:${router.routes.size}")
         }
 
 
