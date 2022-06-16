@@ -76,7 +76,6 @@ class Bootstrap(private val VERSION: String) : PortableFrame() {
         val menu_item_cert = JMenuItem("인증서 설정")
         menu_bar.add(menu_1)
         menu_1.add(menu_item_cert)
-        menu_bar.add(SkinComboSelector())
         menu_item_cert.addActionListener {
             SettingGUI()
         }

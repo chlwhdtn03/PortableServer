@@ -6,7 +6,9 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import org.pushingpixels.radiance.theming.ktx.getCurrentSkin
 import ui.PortableScrollbarUI
+import ui.VerticalStackLayout
 import java.awt.BorderLayout
+import java.awt.Color
 import java.awt.Component
 import java.awt.FlowLayout
 import javax.swing.BoxLayout
@@ -19,17 +21,8 @@ import javax.swing.JToggleButton
 import javax.swing.ListSelectionModel
 import javax.swing.border.Border
 
-class SSLPanel : JPanel() {
+class SSLPanel : OptionPanel() {
     init {
-        layout = BorderLayout()
-
-
-        val currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin()
-        background = currentSkin.getColorScheme(
-            DecorationAreaType.NONE,
-            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-            ComponentState.ENABLED
-        ).lightColor
 
         val toggleSSL = JToggleButton("SSL 사용(HTTPS 사용)")
 
@@ -44,15 +37,5 @@ class SSLPanel : JPanel() {
 
     }
 
-    private fun getSettingPanel(vararg options: Option) : JPanel {
-        val result = JPanel()
-        result.layout = BoxLayout(result, BoxLayout.Y_AXIS)
-        for(option in options) {
-            result.add(JPanel().apply {
-                add(JLabel(option.optionName))
-                add(option.optionComponent)
-            })
-        }
-        return result
-    }
+
 }
