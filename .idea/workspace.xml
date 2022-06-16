@@ -9,15 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="설정메뉴 시안">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/VerticalStackLayout.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/OptionPanel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/PortPanel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/ThemePanel.kt" afterDir="false" />
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="1.0 SNAPSHOT&#10;&#10;SSL 보류&#10;80포트로 고정&#10;HTTP 통신만 가능">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/SettingGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/SettingGUI.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/setting/SSLPanel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/SSLPanel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +66,13 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -385,7 +386,28 @@
       <option name="project" value="LOCAL" />
       <updated>1655347605379</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="상속을 통해 빠른 설정패널 생성가능&#10;테마 설정패널, 포트 설정패널 추가&#10;&#10;테마설정은 작동하지만 나머지 포트설정, SSL설정은 구현해야함">
+      <created>1655352794456</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1655352794456</updated>
+    </task>
+    <task id="LOCAL-00031" summary="0.1 SNAPSHOT&#10;&#10;SSL 보류&#10;80포트로 고정&#10;HTTP 통신만 가능">
+      <created>1655353127426</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1655353127426</updated>
+    </task>
+    <task id="LOCAL-00032" summary="1.0 SNAPSHOT&#10;&#10;SSL 보류&#10;80포트로 고정&#10;HTTP 통신만 가능">
+      <created>1655353241736</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1655353241736</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -393,16 +415,45 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="1.0-SNAPSHOT" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="GUI 리펙토링" />
-    <MESSAGE value="오브젝트 삭제" />
-    <MESSAGE value="서버 라우터 추가" />
     <MESSAGE value="라우터 파일 관리" />
     <MESSAGE value="라우터 저장, 편집, 삭제 시스템 구현 완료" />
     <MESSAGE value="서버에 라우터 설정값 반영하기 성공" />
@@ -425,7 +476,10 @@
     <MESSAGE value="모든 출력을 콘솔에서 JTextArea로 옮겼을때 한글 깨지던 문제 해결" />
     <MESSAGE value="isActive에서 isVisible로 JFrame이 열렸는지 확인" />
     <MESSAGE value="설정메뉴 시안" />
-    <option name="LAST_COMMIT_MESSAGE" value="설정메뉴 시안" />
+    <MESSAGE value="상속을 통해 빠른 설정패널 생성가능&#10;테마 설정패널, 포트 설정패널 추가&#10;&#10;테마설정은 작동하지만 나머지 포트설정, SSL설정은 구현해야함" />
+    <MESSAGE value="0.1 SNAPSHOT&#10;&#10;SSL 보류&#10;80포트로 고정&#10;HTTP 통신만 가능" />
+    <MESSAGE value="1.0 SNAPSHOT&#10;&#10;SSL 보류&#10;80포트로 고정&#10;HTTP 통신만 가능" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.0 SNAPSHOT&#10;&#10;SSL 보류&#10;80포트로 고정&#10;HTTP 통신만 가능" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
