@@ -9,10 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="리팩토링, 커스텀 토글버튼">
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="커스텀 토글버튼 적용">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/util/OptionManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/PortableToggle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableToggle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/setting/OptionPanel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/OptionPanel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/setting/SSLPanel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/SSLPanel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,9 +59,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Enum" />
+        <option value="Kotlin Data Class" />
         <option value="Class" />
         <option value="Kotlin Class" />
-        <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
@@ -396,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655451575170</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="커스텀 토글버튼 적용">
+      <created>1655452612519</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1655452612519</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -411,7 +417,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="서버 라우터 추가" />
     <MESSAGE value="라우터 파일 관리" />
     <MESSAGE value="라우터 저장, 편집, 삭제 시스템 구현 완료" />
     <MESSAGE value="서버에 라우터 설정값 반영하기 성공" />
@@ -436,7 +441,8 @@
     <MESSAGE value="설정메뉴 시안" />
     <MESSAGE value="1.1 개발 준비" />
     <MESSAGE value="리팩토링, 커스텀 토글버튼" />
-    <option name="LAST_COMMIT_MESSAGE" value="리팩토링, 커스텀 토글버튼" />
+    <MESSAGE value="커스텀 토글버튼 적용" />
+    <option name="LAST_COMMIT_MESSAGE" value="커스텀 토글버튼 적용" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
