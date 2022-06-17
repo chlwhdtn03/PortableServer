@@ -1,5 +1,6 @@
 package ui.setting
 
+import data.Option
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import ui.VerticalStackLayout
 import java.awt.BorderLayout

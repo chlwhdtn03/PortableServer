@@ -1,25 +1,9 @@
 package ui.setting
 
-import org.pushingpixels.radiance.theming.api.ComponentState
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
-import org.pushingpixels.radiance.theming.ktx.getCurrentSkin
-import ui.PortableScrollbarUI
-import ui.VerticalStackLayout
-import java.awt.BorderLayout
-import java.awt.Color
-import java.awt.Component
-import java.awt.FlowLayout
-import javax.swing.BoxLayout
+import data.Option
 import javax.swing.JButton
-import javax.swing.JLabel
-import javax.swing.JList
-import javax.swing.JPanel
 import javax.swing.JScrollPane
 import javax.swing.JToggleButton
-import javax.swing.ListSelectionModel
-import javax.swing.border.Border
 
 class SSLPanel : OptionPanel() {
     init {

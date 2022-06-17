@@ -259,9 +259,9 @@ class PortableServer(VERSION: String, PORT: Int) {
             }
 
             println("Creating HTTPS key...")
-//            val fileOutputStream = FileOutputStream(storeName)
-//            val fileInputStream = FileInputStream(storeName)
-//            val keystore = KeyStore.getInstance(storeType)
+            val fileOutputStream = FileOutputStream(storeName)
+            val fileInputStream = FileInputStream(storeName)
+            val keystore = KeyStore.getInstance(storeType)
 //            keystore.load(null, password.toString().toCharArray())
 //            keystore.store(fileOutputStream, password.toString().toCharArray())
 //            keystore.load(fileInputStream, password.toString().toCharArray())

@@ -1,8 +1,8 @@
 package ui.setting
 
+import data.Option
 import ui.SkinComboSelector
 import javax.swing.JScrollPane
-import javax.swing.JTextField
 
 class ThemePanel : OptionPanel() {
 

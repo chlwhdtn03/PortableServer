@@ -1,4 +1,4 @@
-package ui.setting
+package data
 
 import javax.swing.JComponent
 
