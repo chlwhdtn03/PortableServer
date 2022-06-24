@@ -1,5 +1,6 @@
 import server.PortableServer
 import ui.Bootstrap
+import util.OptionManager
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
@@ -10,8 +11,8 @@ fun main(args: Array<String>) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         // TODO : GUI 불가능한 환경에선 에러날거임
         SwingUtilities.invokeLater {
+                OptionManager.loadOptions()
                 val bootstrap = Bootstrap(VERSION)
-
 
 
                 println("Initing Server...")

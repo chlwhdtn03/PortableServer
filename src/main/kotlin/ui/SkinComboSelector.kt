@@ -3,6 +3,7 @@ package ui
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRenderer
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo
+import util.OptionManager
 import java.awt.Component
 import javax.swing.JComboBox
 import javax.swing.JList
@@ -44,6 +45,8 @@ class SkinComboSelector : JComboBox<Any?>(ArrayList(RadianceThemingCortex.Global
                         (this@SkinComboSelector.selectedItem as SkinInfo)
                             .className
                     )
+                OptionManager.THEME_SKIN = (this@SkinComboSelector.selectedItem as SkinInfo).className
+                OptionManager.saveOptions()
             }
         }
     }
