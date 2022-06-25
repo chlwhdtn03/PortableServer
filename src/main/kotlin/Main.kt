@@ -17,13 +17,14 @@ fun main(args: Array<String>) {
 
                 println("Initing Server...")
 
-                if (bootstrap.isVisible) {
-                        println("GUI 활성화")
-                    PortableServer(VERSION, port, bootstrap)
-                } else {
-                        println("GUI 실패")
-                    PortableServer(VERSION, port)
-                }
+//                if (bootstrap.isVisible) {
+//                        println("GUI 활성화")
+//                    PortableServer(VERSION, port, bootstrap)
+//                } else {
+//                        println("GUI 실패")
+//                    PortableServer(VERSION, port)
+//                }
+                PortableServer(VERSION, port)
         }
 }
 

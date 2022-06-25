@@ -311,10 +311,10 @@ class PortableServer(VERSION: String, PORT: Int) {
         router.route().order(0).handler(BodyHandler.create().setBodyLimit(500)).handler {
 
 
-            recordVisitor(it)
+//            recordVisitor(it) 방문자 기록
             it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
         }.failureHandler {
-            recordVisitor(it)
+//            recordVisitor(it) 방문자 기록
             it.response().isChunked = true
             it.response().putHeader("content-type","text/html;charset=utf-8")
             it.response().write("${it.statusCode()} ERROR\n${errorMessage(it.statusCode())}")
@@ -351,10 +351,6 @@ class PortableServer(VERSION: String, PORT: Int) {
 
 
 
-    }
-
-    fun recordVisitor(request: RoutingContext) {
-        bootstrap?.recordVisitor(request.request().remoteAddress().hostAddress(), request.request().uri(), if(request.statusCode() == -1) "" else request.statusCode().toString())
     }
 
     private fun errorMessage(statuscode: Int) : String {

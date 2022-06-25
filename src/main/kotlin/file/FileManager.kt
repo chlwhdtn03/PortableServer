@@ -62,7 +62,7 @@ class FileManager {
                 println("DELETED $routername")
             else
                 println("Failed to delete $routername")
-            bootstrap.loadRouterList()
+//            bootstrap.loadRouterList() // 라우터 새로고침
 
         }
 
@@ -111,7 +111,7 @@ class FileManager {
                 println("DELETED $objectname")
             else
                 println("Failed to delete $objectname")
-            bootstrap.loadPortableObjectList()
+//            bootstrap.loadPortableObjectList() // 오브젝트 새로고침
 
         }
 
