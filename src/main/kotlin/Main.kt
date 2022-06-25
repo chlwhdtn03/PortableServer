@@ -1,4 +1,5 @@
 import server.PortableServer
+import tornadofx.launch
 import ui.Bootstrap
 import util.OptionManager
 import javax.swing.JFrame
@@ -12,8 +13,7 @@ fun main(args: Array<String>) {
         // TODO : GUI 불가능한 환경에선 에러날거임
         SwingUtilities.invokeLater {
                 OptionManager.loadOptions()
-                val bootstrap = Bootstrap(VERSION)
-
+                launch<Bootstrap>(args)
 
                 println("Initing Server...")
 
