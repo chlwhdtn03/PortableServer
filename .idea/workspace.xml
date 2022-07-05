@@ -9,14 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="옵션 저장&amp;불러오기 구현&#10;&#10;테마 옵션만 작업했고 SSL과 포트는 구현이 필요함">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ObjectEditor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableMain.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableStyle.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ui/RouterEditor.kt" afterDir="false" />
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="메인화면 폰트 사이즈 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/PortableMainView.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/PortableMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableMain.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -418,7 +414,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655453688871</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="메인화면 재구성">
+      <created>1656208241373</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1656208241373</updated>
+    </task>
+    <task id="LOCAL-00035" summary="메인화면 폰트 사이즈 수정">
+      <created>1656208275018</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1656208275018</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -433,8 +443,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="라우터 저장, 편집, 삭제 시스템 구현 완료" />
-    <MESSAGE value="서버에 라우터 설정값 반영하기 성공" />
     <MESSAGE value="JAR 추출 준비파일" />
     <MESSAGE value="Gradle에 맞는 JAR 추출 방식 추가" />
     <MESSAGE value="필요없는 MANIFEST.MF 파일 삭제" />
@@ -458,7 +466,9 @@
     <MESSAGE value="리팩토링, 커스텀 토글버튼" />
     <MESSAGE value="커스텀 토글버튼 적용" />
     <MESSAGE value="옵션 파일 작업중" />
-    <option name="LAST_COMMIT_MESSAGE" value="옵션 파일 작업중" />
+    <MESSAGE value="메인화면 재구성" />
+    <MESSAGE value="메인화면 폰트 사이즈 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="메인화면 폰트 사이즈 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

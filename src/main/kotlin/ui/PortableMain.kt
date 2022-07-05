@@ -22,62 +22,55 @@ class PortableMain : View("PortableServer") {
             }
         }
 
-        center = hbox {
-            // 라우터, 오브젝트
-            vbox {
-                listview (routerController.values) {
-                    cellFormat {
-                        val router = FileManager.loadRouter(it)
-                        graphic = cache {
-                            form {
-                                fieldset {
-                                    label(router.name) {
-
-                                    }
-                                    field("주소") {
-                                        label(router.address)
-                                    }
-                                    field("Method Type") {
-                                        label(router.type.name)
-                                    }
-                                    field("타겟 오브젝트") {
-                                        label(router.target_data ?: "HTML")
-                                        label(router.target_object?.name ?: "NULL")
-                                        label(router.target_trigger?.name ?: "NULL")
-                                    }
+        center = titledpane("Server") {
+            isCollapsible = false
+            hbox {
+                // 라우터, 오브젝트
+                vbox {
+                    listview(routerController.values) {
+                        cellFormat {
+                            val router = FileManager.loadRouter(it)
+                            graphic = cache {
+                                form {
+                                    label("${router.name} (/${router.address}) - ${router.type.name}")
                                 }
-
                             }
                         }
                     }
+                    button("Add Router") {
+                        action {
+                            find<RouterEditor>().openWindow(stageStyle = StageStyle.UTILITY)
+                        }
+                    }
                 }
-                button("Add Router") {
-                    action {
-                        find<RouterEditor>().openWindow(stageStyle = StageStyle.UTILITY)
+
+                vbox {
+                    listview(objectController.values)
+                    button("Add Object") {
+
                     }
                 }
             }
+        }
 
+        right = titledpane("Visitor") {
+            isCollapsible = false
             vbox {
-                listview(objectController.values)
-                button("Add Object") {
+                // 방문자 목록
+
+            }
+        }
+
+        bottom = titledpane("Console") {
+            isCollapsible = false
+            vbox {
+                textarea {
+                    isEditable = false
+                    tooltip("Console Ouptut")
+                }
+                textfield {
 
                 }
-            }
-        }
-
-        right = vbox {
-            // 방문자 목록
-
-        }
-
-        bottom = vbox {
-            textarea {
-                isEditable = false
-                tooltip("Console Ouptut")
-            }
-            textfield {
-
             }
         }
     }
