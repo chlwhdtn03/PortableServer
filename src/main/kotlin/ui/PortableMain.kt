@@ -67,9 +67,10 @@ class PortableMain : View("PortableServer") {
                 textarea {
                     isEditable = false
                     tooltip("Console Ouptut")
+                    PortableComponent.console_area = this
+
                 }
                 textfield {
-
                 }
             }
         }

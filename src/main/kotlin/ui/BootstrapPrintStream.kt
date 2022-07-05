@@ -1,14 +1,15 @@
 package ui
 
+import javafx.scene.control.TextArea
+import javafx.scene.control.skin.TextAreaSkin
 import java.io.ByteArrayOutputStream
 import java.io.OutputStream
 import javax.swing.JTextArea
 import javax.swing.SwingUtilities
 
-class BootstrapPrintStream(private val consoleArea: JTextArea) : OutputStream() {
+class BootstrapPrintStream(private val consoleArea: TextArea) : OutputStream() {
     override fun write(b: Int) {
-        consoleArea.append("${b.toChar()}")
-        consoleArea.caretPosition = consoleArea.document.length
+        consoleArea.appendText("${b.toChar()}")
     }
 
     override fun write(b: ByteArray) {
@@ -16,8 +17,7 @@ class BootstrapPrintStream(private val consoleArea: JTextArea) : OutputStream() 
     }
 
     override fun write(b: ByteArray, off: Int, len: Int) {
-        consoleArea.append("${String(b, off, len)}")
-        consoleArea.caretPosition = consoleArea.document.length
+        consoleArea.appendText("${String(b, off, len)}")
     }
 
 
