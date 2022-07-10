@@ -16,9 +16,12 @@ fun main(args: Array<String>) {
         // TODO : GUI 불가능한 환경에선 에러날거임
 
         OptionManager.loadOptions()
-        SwingUtilities.invokeLater {
+        val uiThread: Thread = Thread {
                 launch<Bootstrap>(args)
         }
+        uiThread.name = "GUI Thread"
+        uiThread.isDaemon = true
+        uiThread.start()
         println("Initing Server...")
 
 //                if (bootstrap.isVisible) {
@@ -28,10 +31,7 @@ fun main(args: Array<String>) {
 //                        println("GUI 실패")
 //                    PortableServer(VERSION, port)
 //                }
-                if(PortableComponent.console_area != null) {
-                        System.setOut(PrintStream(BootstrapPrintStream(PortableComponent.console_area!!)))
-                        System.setErr(PrintStream(BootstrapPrintStream(PortableComponent.console_area!!)))
-                }
+
         PortableServer(VERSION, port)
 
 }

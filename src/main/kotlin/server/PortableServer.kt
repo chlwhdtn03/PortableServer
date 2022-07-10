@@ -61,6 +61,15 @@ class PortableServer(VERSION: String, PORT: Int) {
         )
         val router:Router = Router.router(vertx)
 
+        fun reloadRouter() {
+            resetRouter()
+            val results = FileManager.loadRouters()
+            var temp: RouterObject
+            for(i in results.indices) {
+                temp = FileManager.loadRouter(results[i].split(".")[0])
+                addRoute(temp)
+            }
+        }
 
         fun addRoute(routerObject: RouterObject) {
 
@@ -72,14 +81,14 @@ class PortableServer(VERSION: String, PORT: Int) {
                 RouterMethod.POST -> {
                     route.method(HttpMethod.POST)
                 }
-                RouterMethod.GET_POST -> {
-                    route.method(HttpMethod.POST).method(HttpMethod.GET)
+                RouterMethod.PUT -> {
+                    route.method(HttpMethod.PUT)
                 }
-                RouterMethod.UPDATE -> {
-                    route.method(HttpMethod.UPDATE)
+                RouterMethod.PATCH -> {
+                    route.method(HttpMethod.PATCH)
                 }
                 RouterMethod.DELETE -> {
-                    route.method(HttpMethod.UPDATE)
+                    route.method(HttpMethod.DELETE)
                 }
             }
             route.setName("custom").handler { requesthandler ->
@@ -344,6 +353,7 @@ class PortableServer(VERSION: String, PORT: Int) {
         server.requestHandler(router).listen(PORT).onComplete {
             println("Server Opened in port ${PORT}")
             println("URL : https://localhost")
+            reloadRouter()
         }.onFailure {
             println(it.message)
         }

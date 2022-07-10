@@ -1,5 +1,6 @@
 package ui
 
+import data.RouterMethod
 import data.RouterObject
 import file.FileManager
 import javafx.collections.FXCollections
@@ -7,10 +8,12 @@ import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 import javafx.stage.StageStyle
 import tornadofx.*
+import java.io.PrintStream
 
 class PortableMain : View("PortableServer") {
     private val routerController: RouterController by inject()
     private val objectController: ObjectController by inject()
+
 
     override val root = borderpane {
 
@@ -30,12 +33,27 @@ class PortableMain : View("PortableServer") {
                     listview(routerController.values) {
                         cellFormat {
                             val router = FileManager.loadRouter(it)
+
                             graphic = cache {
                                 form {
                                     label("${router.name} (/${router.address}) - ${router.type.name}")
                                 }
+
+                            }
+
+                        }
+
+                        contextmenu {
+                            item("Edit").action {
+
+                            }
+
+                            item("Delete").action {
+
                             }
                         }
+
+
                     }
                     button("Add Router") {
                         action {
@@ -68,7 +86,8 @@ class PortableMain : View("PortableServer") {
                     isEditable = false
                     tooltip("Console Ouptut")
                     PortableComponent.console_area = this
-
+                    System.setOut(PrintStream(BootstrapPrintStream(this)))
+                    System.setErr(PrintStream(BootstrapPrintStream(this)))
                 }
                 textfield {
                 }
@@ -77,6 +96,9 @@ class PortableMain : View("PortableServer") {
     }
 
     class RouterController: Controller() {
+        init {
+            println("Router Loaded")
+        }
         val values = FXCollections.observableArrayList(FileManager.loadRouters().map {
              it.split(".")[0]
         }.toMutableList())
@@ -85,6 +107,10 @@ class PortableMain : View("PortableServer") {
         val values = FXCollections.observableArrayList(FileManager.loadObjects().map {
             it.split(".")[0]
         }.toMutableList())
+    }
+
+    class MethodController: Controller() {
+        val values = FXCollections.observableArrayList(RouterMethod.values().toMutableList())
     }
 
 }
