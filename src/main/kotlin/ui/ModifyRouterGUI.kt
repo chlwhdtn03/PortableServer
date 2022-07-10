@@ -7,6 +7,7 @@ import data.TriggerType
 import util.FileManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ui.component.PortableScrollbarUI
 import java.awt.Dimension
 import java.awt.SystemColor
 import javax.swing.*

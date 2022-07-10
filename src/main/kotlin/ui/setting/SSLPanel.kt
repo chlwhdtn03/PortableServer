@@ -2,13 +2,10 @@ package ui.setting
 
 import data.Option
 import data.PointerBoolean
-import ui.PortableToggle
-import java.awt.Color
-import java.awt.Dimension
+import ui.component.PortableToggle
 import javax.swing.JButton
 import javax.swing.JFileChooser
 import javax.swing.JScrollPane
-import javax.swing.JToggleButton
 import javax.swing.filechooser.FileNameExtensionFilter
 
 class SSLPanel : OptionPanel() {

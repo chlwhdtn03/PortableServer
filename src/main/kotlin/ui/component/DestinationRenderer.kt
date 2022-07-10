@@ -1,4 +1,4 @@
-package ui
+package ui.component
 
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer
 import java.awt.BorderLayout

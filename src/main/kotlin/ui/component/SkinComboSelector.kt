@@ -1,4 +1,4 @@
-package ui
+package ui.component
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRenderer

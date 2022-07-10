@@ -1,4 +1,4 @@
-package ui
+package ui.component
 
 import data.PointerBoolean
 import org.pushingpixels.radiance.theming.api.ComponentState

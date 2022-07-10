@@ -4,6 +4,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
+import ui.component.DestinationRenderer
 import ui.setting.PortPanel
 import ui.setting.SSLPanel
 import ui.setting.ThemePanel

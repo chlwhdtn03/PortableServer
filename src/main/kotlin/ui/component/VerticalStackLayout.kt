@@ -1,4 +1,4 @@
-package ui
+package ui.component
 
 import java.awt.Component
 import java.awt.Container
