@@ -9,15 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="옵션 파일 작업중">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/util/OptionObject.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/RouterMethod.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/RouterMethod.kt" afterDir="false" />
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="Option 체계 변경">
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/util/FileManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/PortableFrame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableFrame.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/SkinComboSelector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/SkinComboSelector.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/BootstrapPrintStream.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/util/BootstrapPrintStream.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyRouterGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyRouterGUI.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/PortableToggle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableToggle.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/setting/PortPanel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/PortPanel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/setting/ThemePanel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/ThemePanel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/util/OptionManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/util/OptionManager.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,6 +105,7 @@
       <recent name="data" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="util" />
       <recent name="data" />
       <recent name="ui" />
       <recent name="server" />
@@ -416,7 +417,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655453688871</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Option 체계 변경">
+      <created>1657452613721</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1657452613721</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -431,7 +439,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="라우터 저장, 편집, 삭제 시스템 구현 완료" />
     <MESSAGE value="서버에 라우터 설정값 반영하기 성공" />
     <MESSAGE value="JAR 추출 준비파일" />
     <MESSAGE value="Gradle에 맞는 JAR 추출 방식 추가" />
@@ -456,7 +463,8 @@
     <MESSAGE value="리팩토링, 커스텀 토글버튼" />
     <MESSAGE value="커스텀 토글버튼 적용" />
     <MESSAGE value="옵션 파일 작업중" />
-    <option name="LAST_COMMIT_MESSAGE" value="옵션 파일 작업중" />
+    <MESSAGE value="Option 체계 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="Option 체계 변경" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -2,8 +2,9 @@ package ui
 
 import data.PortableObject
 import data.RouterObject
-import file.FileManager
+import util.FileManager
 import server.PortableServer
+import util.BootstrapPrintStream
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.event.MouseAdapter

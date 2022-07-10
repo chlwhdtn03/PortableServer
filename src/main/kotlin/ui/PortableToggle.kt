@@ -19,7 +19,6 @@ class PortableToggle(private val target : PointerBoolean = PointerBoolean(false)
     }
 
     override fun paintComponent(g: Graphics?) {
-        println(width)
         if(g != null) {
             g.clearRect(0,0, width, height)
             if(target.b) {
