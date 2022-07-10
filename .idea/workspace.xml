@@ -10,10 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="옵션 파일 작업중">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/util/OptionObject.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/data/RouterMethod.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/data/RouterMethod.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/PortableFrame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableFrame.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/SkinComboSelector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/SkinComboSelector.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/setting/PortPanel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/PortPanel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/setting/ThemePanel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/ThemePanel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/util/OptionManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/util/OptionManager.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,6 +68,7 @@
         <option value="Class" />
         <option value="Kotlin Class" />
         <option value="Kotlin Data Class" />
+        <option value="Kotlin Object" />
       </list>
     </option>
   </component>

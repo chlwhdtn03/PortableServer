@@ -72,14 +72,11 @@ class PortableServer(VERSION: String, PORT: Int) {
                 RouterMethod.POST -> {
                     route.method(HttpMethod.POST)
                 }
-                RouterMethod.GET_POST -> {
-                    route.method(HttpMethod.POST).method(HttpMethod.GET)
-                }
-                RouterMethod.UPDATE -> {
-                    route.method(HttpMethod.UPDATE)
-                }
                 RouterMethod.DELETE -> {
-                    route.method(HttpMethod.UPDATE)
+                    route.method(HttpMethod.DELETE)
+                }
+                RouterMethod.PUT -> {
+                    route.method(HttpMethod.PUT)
                 }
             }
             route.setName("custom").handler { requesthandler ->

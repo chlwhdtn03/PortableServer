@@ -72,8 +72,8 @@ class Bootstrap(private val VERSION: String) : PortableFrame() {
         initVisitorComponent(this)
 
         val menu_bar = JMenuBar()
-        val menu_1 = JMenu("설정")
-        val menu_item_cert = JMenuItem("인증서 설정")
+        val menu_1 = JMenu("파일")
+        val menu_item_cert = JMenuItem("환경설정")
         menu_bar.add(menu_1)
         menu_1.add(menu_item_cert)
         menu_item_cert.addActionListener {
