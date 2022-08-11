@@ -100,7 +100,7 @@ class PortableServer(VERSION: String, PORT: Int) {
                                     data.put(now_varname, temp_str)
 
                                 }
-                                if(FileManager.addRequestObject(routerObject.target_object.name, primary_key, data.toString())) {
+                                if(FileManager.addRequestObject(routerObject.target_object, data)) {
                                     response.statusCode = 200
                                     response.end("데이터를 성공적으로 추가하였습니다.")
                                 } else {
@@ -300,6 +300,7 @@ class PortableServer(VERSION: String, PORT: Int) {
             it.next() // 다음 핸들러가 존재할 경우 넘어가는 코드
         }.failureHandler {
             recordVisitor(it)
+            it.failure().printStackTrace()
             it.response().isChunked = true
             it.response().putHeader("content-type","text/html;charset=utf-8")
             it.response().write("${it.statusCode()} ERROR\n${errorMessage(it.statusCode())}")

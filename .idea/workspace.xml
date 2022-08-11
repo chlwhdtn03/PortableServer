@@ -9,16 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="Option 체계 변경">
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/file/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/util/FileManager.kt" afterDir="false" />
+    <list default="true" id="f54bdd0b-90b2-47e1-bd03-9ad24cb82b93" name="Changes" comment="UI 패키지 위치 변경">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/util/DatabaseManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/server/PortableServer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/Bootstrap.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/BootstrapPrintStream.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/util/BootstrapPrintStream.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyObjectGUI.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyRouterGUI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/ModifyRouterGUI.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/PortableToggle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/PortableToggle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ui/setting/PortPanel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ui/setting/PortPanel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/util/OptionManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/util/OptionManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/util/FileManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/util/FileManager.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +69,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -105,6 +106,7 @@
       <recent name="data" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="ui.component" />
       <recent name="util" />
       <recent name="data" />
       <recent name="ui" />
@@ -424,7 +426,21 @@
       <option name="project" value="LOCAL" />
       <updated>1657452613721</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="패키지 위치 변경">
+      <created>1657453070564</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1657453070564</updated>
+    </task>
+    <task id="LOCAL-00036" summary="UI 패키지 위치 변경">
+      <created>1657453160638</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1657453160638</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -432,15 +448,25 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="sqlite" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="서버에 라우터 설정값 반영하기 성공" />
-    <MESSAGE value="JAR 추출 준비파일" />
     <MESSAGE value="Gradle에 맞는 JAR 추출 방식 추가" />
     <MESSAGE value="필요없는 MANIFEST.MF 파일 삭제" />
     <MESSAGE value="방문자 기록 안되던 문제 수정" />
@@ -464,7 +490,9 @@
     <MESSAGE value="커스텀 토글버튼 적용" />
     <MESSAGE value="옵션 파일 작업중" />
     <MESSAGE value="Option 체계 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="Option 체계 변경" />
+    <MESSAGE value="패키지 위치 변경" />
+    <MESSAGE value="UI 패키지 위치 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI 패키지 위치 변경" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

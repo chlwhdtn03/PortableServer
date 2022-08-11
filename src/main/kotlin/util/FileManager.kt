@@ -2,6 +2,7 @@ package util
 
 import data.PortableObject
 import data.RouterObject
+import io.vertx.core.json.JsonObject
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ui.Bootstrap
@@ -118,21 +119,63 @@ class FileManager {
         /**
          * @return 이미 존재하는 일반키이면 false, 잘 추가 됬으면 true
          */
-        fun addRequestObject(objectname: String, primarykey: String, requestobjectjson: String): Boolean {
-            val dir: File = File("data/${objectname}/")
-            if (!dir.isDirectory)
-                dir.mkdirs()
-            val file: File = File("data/${objectname}/${primarykey}.txt")
-            if (!file.exists()) {
-                file.createNewFile()
-            } else {
-                return false
+        fun addRequestObject(target: PortableObject, data: JsonObject): Boolean {
+            var parsered = StringBuffer()
+            var cache_count: Int = 0
+            for(i in target.varNames.indices) {
+                parsered.append("${target.varNames[i]} ${target.varTypes[i]}")
+                if(i == 0) {
+                    parsered.append(" PRIMARY KEY")
+                }
+                cache_count = i
+                if(target.varNames[i+1].isNotEmpty()) {
+                    parsered.append(", ")
+                } else {
+                    break;
+                }
             }
 
-            val bw = BufferedWriter(FileWriter(file))
-            bw.write(requestobjectjson)
-            bw.flush()
-            bw.close()
+            println(parsered)
+
+            DatabaseManager.statement.executeUpdate("create table if not exists ${target.name}(${parsered})")
+//            val dir: File = File("data/${objectname}/")
+//            if (!dir.isDirectory)
+//                dir.mkdirs()
+//            val file: File = File("data/${objectname}/${primarykey}.txt")
+//            if (!file.exists()) {
+//                file.createNewFile()
+//            } else {
+//                return false
+//            }
+
+            val list = CharArray(cache_count+1)
+            for(i in list.indices) {
+                list[i] = '?'
+            }
+
+            parsered.delete(0, parsered.length)
+            for(i in 0..cache_count) {
+                parsered.append("${target.varNames[i]}")
+                if(target.varNames[i+1].isNotEmpty()) {
+                    parsered.append(", ")
+                } else {
+                    break;
+                }
+            }
+
+            println(data.toString())
+            val ps = DatabaseManager.connection.prepareStatement("INSERT INTO ${target.name}(${parsered}) VALUES(${list.joinToString(separator = ",")})")
+            for(i in 1..cache_count+1) {
+                when(target.varTypes[i-1]) {
+                    "string" -> {
+                        ps.setString(i, data.getString(target.varNames[i-1]))
+                    }
+                    "int" -> {
+                        ps.setInt(i, data.getString(target.varNames[i-1]).toInt())
+                    }
+                }
+            }
+            ps.executeUpdate()
             return true
         }
 
