@@ -20,7 +20,7 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
 
     val titlePanel = JPanel();
     val field_name = JTextField(20)
-    val support_data_type: Array<String> = arrayOf("string", "int") // 추가 예정
+    val support_data_type: Array<String> = arrayOf("string", "integer") // 추가 예정
     val tv_name = JLabel()
 
 
@@ -34,8 +34,8 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
         arrayOf(JCheckBox().apply { isEnabled=false }, JCheckBox().apply { text = "보안 사용" }, JCheckBox().apply { text = "보안 사용" }, JCheckBox().apply { text = "보안 사용" }, JCheckBox().apply { text = "보안 사용" })
 
     var varNamesStr:Array<String> = arrayOf("","","","","")
-    var varTypesStr:Array<String> = arrayOf("int","int","int","int","int")
-    var varProvidesStr:Array<Boolean> = arrayOf(true,true,true,true,true)
+    var varTypesStr:Array<String> = arrayOf("integer","integer","integer","integer","integer")
+    var varProvidesBool:Array<Boolean> = arrayOf(true,true,true,true,true)
 
     var saveBtn: JButton = JButton("save")
     var hintlabel: JLabel = JLabel("변수명을 빈칸으로 남겨두면 자동으로 제외됩니다.")
@@ -120,14 +120,14 @@ class ModifyObjectGUI(parent: Bootstrap, title: String) : JFrame() {
                 }
                 varNamesStr[i] = varNames[i].text.trim()
                 varTypesStr[i] = varTypes[i].selectedValue
-                varProvidesStr[i] = !varProvides[i].isSelected
+                varProvidesBool[i] = !varProvides[i].isSelected
 
                 vaild_count++
                 // TODO: 중복되는 변수명에 대한 사용자에게 알림 필요
             }
 
             if(vaild_count > 0) {
-                var data = PortableObject(field_name.text.trim(), varNamesStr, varTypesStr, varProvidesStr);
+                var data = PortableObject(field_name.text.trim(), varNamesStr, varTypesStr, varProvidesBool);
                 println(data)
                 val str = Json.encodeToString(data)
                 FileManager.saveObject(field_name.text.trim(), str)

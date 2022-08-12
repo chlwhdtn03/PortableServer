@@ -116,7 +116,7 @@ class PortableServer(VERSION: String, PORT: Int) {
                                     return@handler
                                 }
 
-                                var result:String = FileManager.getRequestObject(routerObject.target_object.name, primary_key)
+                                var result:String = FileManager.getRequestObject(routerObject.target_object, primary_key)
                                 if(result.trim().isNotEmpty()) {
                                     val json = io.vertx.core.json.JsonObject(result)
                                     for(i in routerObject.target_object.varProvide.indices) {
@@ -145,7 +145,7 @@ class PortableServer(VERSION: String, PORT: Int) {
                                     response.end("${routerObject.target_data} 필드가 비어있습니다.")
                                     return@handler
                                 }
-                                var target:String = FileManager.getRequestObject(routerObject.target_object.name, primary_key)
+                                val target:String = FileManager.getRequestObject(routerObject.target_object, primary_key)
                                 if(target.trim().isNotEmpty()) {
 
                                     val json = io.vertx.core.json.JsonObject(target)
@@ -173,7 +173,7 @@ class PortableServer(VERSION: String, PORT: Int) {
                                     response.end(routerObject.target_object.varNames[0] + " 필드가 비어있습니다.")
                                     return@handler
                                 }
-                                var target:String = FileManager.getRequestObject(routerObject.target_object.name, primary_key)
+                                var target:String = FileManager.getRequestObject(routerObject.target_object, primary_key)
                                 if(target.isEmpty()) {
                                     response.statusCode = 403
                                     response.end("존재하지 않는 데이터입니다.")
@@ -184,19 +184,23 @@ class PortableServer(VERSION: String, PORT: Int) {
                                 var changed: Array<String> = emptyArray()
                                 for(i in 1 until routerObject.target_object.varNames.size) {
                                     var input_data = request.getParam(routerObject.target_object.varNames[i], "")
-                                    if(input_data.isEmpty())
+                                    if(input_data.isEmpty()) {
+                                        json.remove(routerObject.target_object.varNames[i])
                                         continue
+                                    }
                                     json.remove(routerObject.target_object.varNames[i])
                                     json.put(routerObject.target_object.varNames[i], input_data)
                                     changed = changed.plus(routerObject.target_object.varNames[i])
                                 }
+
+
                                 if(changed.isEmpty()) {
                                     response.statusCode = 200
                                     response.end(Json.encodeToString(PortableResponse(200, false, "변경된 값이 없습니다")))
                                 } else {
                                     response.statusCode = 200
-                                    FileManager.modifyRequestObject(routerObject.target_object.name, primary_key, json.toString())
-                                    response.end(Json.encodeToString(PortableResponse(200, true, changed.joinToString(",") + " 변경됨")))
+                                    FileManager.modifyRequestObject(routerObject.target_object, json)
+                                    response.end(Json.encodeToString(PortableResponse(200, true, "변경되었습니다.")))
                                 }
 
 

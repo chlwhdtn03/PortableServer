@@ -138,15 +138,6 @@ class FileManager {
             println(parsered)
 
             DatabaseManager.statement.executeUpdate("create table if not exists ${target.name}(${parsered})")
-//            val dir: File = File("data/${objectname}/")
-//            if (!dir.isDirectory)
-//                dir.mkdirs()
-//            val file: File = File("data/${objectname}/${primarykey}.txt")
-//            if (!file.exists()) {
-//                file.createNewFile()
-//            } else {
-//                return false
-//            }
 
             val list = CharArray(cache_count+1)
             for(i in list.indices) {
@@ -170,7 +161,7 @@ class FileManager {
                     "string" -> {
                         ps.setString(i, data.getString(target.varNames[i-1]))
                     }
-                    "int" -> {
+                    "integer" -> {
                         ps.setInt(i, data.getString(target.varNames[i-1]).toInt())
                     }
                 }
@@ -179,19 +170,36 @@ class FileManager {
             return true
         }
 
-        fun modifyRequestObject(objectname: String, primarykey: String, requestobjectjson: String): Boolean {
-            val dir: File = File("data/${objectname}/")
-            if (!dir.isDirectory)
-                dir.mkdirs()
-            val file: File = File("data/${objectname}/${primarykey}.txt")
-            if (!file.exists()) {
-                return false
+        fun modifyRequestObject(target: PortableObject, data: JsonObject): Boolean {
+            val sb = StringBuilder()
+            var primarykey = ""
+            for(name in data.fieldNames()) {
+                if(name == target.varNames[0]) {
+                    primarykey = name
+                    println("primarykey $primarykey")
+                    continue
+                } else {
+
+                    println("else $name")
+                    if(target.varNames.any { equals(name) }) // 찾을 수 없는 필드명일 경우
+                        return false
+                    when(target.varTypes[target.varNames.indexOf(name)]) {
+                        "integer" -> {
+                            sb.append("$name=${data.getString(name).toInt()}, ")
+                        }
+                        "string" -> {
+                            sb.append("$name='${data.getString(name)}', ")
+                        }
+                    }
+                }
+
             }
 
-            val bw = BufferedWriter(FileWriter(file))
-            bw.write(requestobjectjson)
-            bw.flush()
-            bw.close()
+            if(primarykey.isBlank()) // 기본키를 찾지 못함
+                return false
+            sb.delete(sb.length-2, sb.length) // 맨 마지막은 ','일 테니 이거 지우고 where문 붙여야함
+            println("update ${target.name} set $sb WHERE $primarykey='${data.getString(primarykey)}'")
+            DatabaseManager.statement.executeUpdate("update ${target.name} set $sb WHERE $primarykey='${data.getString(primarykey)}'")
             return true
         }
 
@@ -209,19 +217,24 @@ class FileManager {
             return true
         }
 
-        fun getRequestObject(objectname: String, primarykey: String): String {
-            val dir: File = File("data/${objectname}/")
-            if (!dir.isDirectory)
-                dir.mkdirs()
-            val file: File = File("data/${objectname}/${primarykey}.txt")
-            if (!file.exists()) {
+        fun getRequestObject(obj: PortableObject, primarykey: String): String {
+            val row = DatabaseManager.statement.executeQuery("SELECT * FROM ${obj.name} WHERE ${obj.varNames[0]}='$primarykey'")
+            row.next()
+            if(row.isClosed) // 결과 없단 얘기
                 return ""
-            }
+            val result = JsonObject()
+            for(i in obj.varNames.filter { it.isNotBlank() }.indices) {
 
-            val bw = BufferedReader(FileReader(file))
-            val result = bw.readLine()
-            bw.close()
-            return result
+                when(obj.varTypes[i]) {
+                    "integer" -> {
+                        result.put(obj.varNames[i], row.getInt(obj.varNames[i]))
+                    }
+                    "string" -> {
+                        result.put(obj.varNames[i], row.getString(obj.varNames[i]))
+                    }
+                }
+            }
+            return result.toString()
         }
 
     }
